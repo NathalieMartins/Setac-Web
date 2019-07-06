@@ -1,7 +1,7 @@
 <?php
 
-    class Student extends Person{
-        public $academicRegister;
+    class Estudante extends Usuario{
+        private $registroAcademico;
 
 
         public function __construct(){
