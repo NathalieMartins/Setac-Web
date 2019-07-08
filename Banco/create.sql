@@ -1,7 +1,5 @@
 -- MySQL Workbench Forward Engineering
 
-#DROP DATABASE setac;
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -13,6 +11,9 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema setac
 -- -----------------------------------------------------
+
+#DROP DATABASE setac;
+
 CREATE SCHEMA IF NOT EXISTS `setac` DEFAULT CHARACTER SET utf8 ;
 -- -----------------------------------------------------
 -- Schema setac
@@ -57,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `setac`.`Professor` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `siape` VARCHAR(45) NULL,
   `qualificacao` VARCHAR(45) NULL,
-  `area` VARCHAR(45) NULL,
+  `area` INT NULL,
   `Usuario_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`, `Usuario_id`),
   CONSTRAINT `fk_Professor_Usuario1`
@@ -103,6 +104,16 @@ CREATE TABLE IF NOT EXISTS `setac`.`Usuario_has_Atividade` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+DELIMITER //
+
+CREATE PROCEDURE insere_usuario
+(Ulogin VARCHAR(45), Usenha VARCHAR(45), Uemail VARCHAR(45), Uacesso VARCHAR(45), Unome VARCHAR(45), Ucpf VARCHAR(45), Utelefone VARCHAR(45))
+BEGIN
+	INSERT INTO usuario (login, senha, email, acesso, nome, cpf, telefone) VALUES (Ulogin, Usenha, Uemail, Uacesso, Unome, Ucpf, Utelefone);
+	SELECT * FROM usuario WHERE id = LAST_INSERT_ID();
+END;
+
+//
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
