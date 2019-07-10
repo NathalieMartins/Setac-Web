@@ -1,0 +1,16 @@
+.logo-setac {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.logo-setac > img {
+  width: 40%;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
