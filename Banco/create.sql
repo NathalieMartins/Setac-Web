@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `setac`.`usuario` (
   `email` VARCHAR(45) NULL DEFAULT NULL,
   `acesso` INT NULL DEFAULT NULL,
   `nome` VARCHAR(45) NULL DEFAULT NULL,
-  `cpf` VARCHAR(45) NULL DEFAULT NULL,
+  `cpf` CHAR(11) NULL DEFAULT NULL,
   `telefone` CHAR(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
@@ -120,7 +120,7 @@ USE `setac` ;
 DELIMITER //
 
 CREATE PROCEDURE `insere_usuario`
-(Ulogin VARCHAR(45), Usenha VARCHAR(45), Uemail VARCHAR(45), Uacesso VARCHAR(45), Unome VARCHAR(45), Ucpf VARCHAR(45), Utelefone VARCHAR(45))
+(Ulogin VARCHAR(45), Usenha VARCHAR(45), Uemail VARCHAR(45), Uacesso VARCHAR(45), Unome VARCHAR(45), Ucpf CHAR(11), Utelefone CHAR(11))
 BEGIN
 	INSERT INTO usuario (login, senha, email, acesso, nome, cpf, telefone)
     VALUES (Ulogin, Usenha, Uemail, Uacesso, Unome, Ucpf, Utelefone);
