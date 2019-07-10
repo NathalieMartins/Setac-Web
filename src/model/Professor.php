@@ -11,32 +11,32 @@ class Professor extends Usuario
 
     public function setSiape($siape)
     {
-        $this->$siape = $siape;
+        $this->siape = $siape;
     }
 
     public function getSiape()
     {
-        return $this->$siape;
+        return $this->siape;
     }
 
     public function setQualificacao($qualificacao)
     {
-        $this->$qualificacao = $qualificacao;
+        $this->qualificacao = $qualificacao;
     }
 
     public function getQualificacao()
     {
-        return $this->$qualificacao;
+        return $this->qualificacao;
     }
 
     public function setArea($area)
     {
-        $this->$area = $area;
+        $this->area = $area;
     }
 
     public function getArea()
     {
-        return $this->$area;
+        return $this->area;
     }
 
 

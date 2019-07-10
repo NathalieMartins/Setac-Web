@@ -14,76 +14,76 @@ class Atividade
 
     public function setId($id)
     {
-        $this->$id = $id;
+        $this->id = $id;
     }
 
     public function getId()
     {
-        return $this->$id;
+        return $this->id;
     }
 
 
     public function setTitulo($titulo)
     {
-        $this->$titulo = $titulo;
+        $this->titulo = $titulo;
     }
 
     public function getTitulo()
     {
-        return $this->$titulo;
+        return $this->titulo;
     }
 
 
     public function setDescricao($descricao)
     {
-        $this->$descricao = $descricao;
+        $this->descricao = $descricao;
     }
 
     public function getDescricao()
     {
-        return $this->$descricao;
+        return $this->descricao;
     }
 
 
     public function setlimiteInscricao($limiteInscricao)
     {
-        $this->$limiteInscricao = $limiteInscricao;
+        $this->limiteInscricao = $limiteInscricao;
     }
 
     public function getlimiteInsricao()
     {
-        return $this->$limiteInscricao;
+        return $this->limiteInscricao;
     }
 
 
     public function setLugar($lugar)
     {
-        $this->$lugar = $lugar;
+        $this->lugar = $lugar;
     }
 
     public function getLugar()
     {
-        return $this->$lugar;
+        return $this->lugar;
     }
 
     public function setStatus($status)
     {
-        this->$status = $status;
+        this->status = $status;
     }
 
     public function getStatus()
     {
-        return this->$status;
+        return this->status;
     }
 
     public function setCargaHoraria($cargaHoraria)
     {
-        this->$cargaHoraria = $cargaHoraria;
+        this->cargaHoraria = $cargaHoraria;
     }
 
     public function getCargaHoraria()
     {
-        return this->$cargaHoraria;
+        return this->cargaHoraria;
     }
 
 
