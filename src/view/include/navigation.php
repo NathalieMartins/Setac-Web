@@ -17,12 +17,12 @@
         <div class="navbar-item">
           <div class="field is-grouped">
             <p class="control">
-              <a class="button is-light" href="cadastro.php">
+              <a class="button is-light" href="../cadastro">
                 Cadastrar
               </a>
             </p>
             <p class="control">
-              <a class="button is-link" href="login.php">
+              <a class="button is-link" href="../login">
                 <strong>Login</strong>
               </a>
             </p>

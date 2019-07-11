@@ -28,17 +28,17 @@
             <div class="logo-setac">
               <img src="/Setac-Web/src/view/img/logo.png" alt="Logo da SeTAC²">
             </div>
-            <form class="form" action="" method="post">
+            <form class="form" action="../../controller/Authentication.php" method="post">
               <div class="field">
                 <label for="usuario" class="label">Usuário</label>
                 <div class="control">
-                  <input type="text" name="usuario" class="input">
+                  <input type="text" name="usuario" class="input" required>
                 </div>
               </div>
               <div class="field">
                 <label for="senha" class="label">Senha</label>
                 <div class="control">
-                  <input type="password" name="senha" class="input">
+                  <input type="password" name="senha" class="input" required>
                 </div>
               </div>
               <div class="field is-grouped">
