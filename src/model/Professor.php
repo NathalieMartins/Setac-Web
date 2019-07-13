@@ -6,8 +6,12 @@ class Professor extends Usuario
     private $qualificacao;
     private $area;
 
-    public function __construct()
-    { }
+    public function __construct($siape,$qualificacao,$area)
+    {
+        $this->setSiape($siape);
+        $this->setQualificacao($qualificacao);
+        $this->setArea($area);
+    }
 
     public function setSiape($siape)
     {
@@ -39,6 +43,21 @@ class Professor extends Usuario
         return $this->area;
     }
 
+    public function loadByProfessor($siape,$qualificacao,$area)
+    {
+        $conexao = new Connection();
+
+        $results = $conexao->select("SELECT * FROM professor WHERE siape = :SIAPE, qualificacao = :QUALIFICACAO, area = :AREA", array(
+            ":SIAPE" => $siape,
+            ":QUALIFICACAO" => $qualificacao,
+            ":AREA" => $area
+        ));
+
+        if (count($results) > 0) {
+            $this->setDados($results[0]);
+            return $this;
+        }
+    }
 
     public function insert()
     {
@@ -110,11 +129,11 @@ class Professor extends Usuario
                 )
             );
 
-                echo "Atualizado com sucesso";
-            } else {
+            echo "Atualizado com sucesso";
+        } else {
 
-                throw new Exception("Professor e seus dados atualizados");
-            }
+            throw new Exception("Professor e seus dados atualizados");
+        }
     }
 
     public function delete()
@@ -129,9 +148,9 @@ class Professor extends Usuario
     public function setDados($dados)
     {
 
-        $this->setSiape($dados['siape']);
-        $this->setQualificacao(($dados['qualificacao']);
-        $this->setArea($dados['area']);
+        $this->setSiape($dados['siape']),
+        $this->setQualificacao(($dados['qualificacao']),
+        $this->setArea($dados['area'])
     }
 
     public function __toString()
