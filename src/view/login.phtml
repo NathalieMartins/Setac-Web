@@ -1,9 +1,7 @@
-<?php include "view/include/title_config.phtml"; ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <?php include "view/include/head_tags.phtml"; ?>
+    <?php include_once("view/include/head_tags.phtml"); ?>
 
     <link rel="stylesheet" type="text/css" href="view/css/login.css">
     <link rel="stylesheet" type="text/css" href="view/css/general.css">
@@ -11,7 +9,7 @@
 
   <body>
 
-    <?php include_once "view/include/navigation.phtml" ?>
+    <?php include_once("view/include/navigation.phtml"); ?>
 
     <br>
     <div class="container">
@@ -53,47 +51,6 @@
         </div>
       </div>
     </div>
-
-
-    <!-- <div class="container">
-      <div class="tile is-ancestor notification">
-
-        <div class="tile is-parent">
-          <div class="tile is-child">
-            <h1 class="title is-1">Login</h1>
-            <p>
-              Faça login com sua conta da SeTAC² e acesse todas as informações sobre a edição atual do evento!
-            </p>
-          </div>
-        </div>
-
-        <div class="tile is-parent">
-          <div class="tile is-child box">
-            <div class="logo-setac">
-              <img src="/Setac-Web/src/view/img/logo.png" alt="Logo da SeTAC²">
-            </div>
-            <form class="form" action="" method="post">
-              <div class="field">
-                <label for="usuario" class="label">Usuário</label>
-                <div class="control">
-                  <input type="text" name="usuario" class="input">
-                </div>
-              </div>
-              <div class="field">
-                <label for="senha" class="label">Senha</label>
-                <div class="control">
-                  <input type="password" name="senha" class="input">
-                </div>
-              </div>
-              <div class="field">
-                <input type="submit" value="Entrar" class="button">
-              </div>
-            </form>
-          </div>
-        </div>
-
-      </div>
-    </div> -->
 
     <script src="view/js/navbar.js"></script>
   </body>
