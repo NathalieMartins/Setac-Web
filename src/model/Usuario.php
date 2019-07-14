@@ -1,6 +1,6 @@
 <?php
 
-include('controller/Connection.php');
+include('../controller/Connection.php');
 
 class Usuario {
 
