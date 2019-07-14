@@ -133,7 +133,7 @@ class Usuario {
       $this->setDados($result[0]);
     }
     else {
-      throw new Exception("Login ou senha inválidos");
+      throw new Exception("Login ou senha inválidos", 10);
     }
   }
 
@@ -164,7 +164,7 @@ class Usuario {
       }
     }
     else {
-      throw new Exception("Usuário ou Email já cadastrados");
+      throw new Exception("Usuário ou email já cadastrados", 20);
     }
   }
 
@@ -188,7 +188,7 @@ class Usuario {
 
       echo "Atualizado com sucesso";
     } else {
-      throw new Exception("Usuário ou Email já cadastrados");
+      throw new Exception("Usuário ou email já cadastrados", 20);
     }
   }
 
