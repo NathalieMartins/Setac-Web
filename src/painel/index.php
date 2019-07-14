@@ -7,7 +7,7 @@ if(!isset($_SESSION["usuario"])) {
   header("Location: ../login.php");
 }
 
-$usuario = $_SESSION['usuario'];
+$usuario = unserialize($_SESSION['usuario']);
 
 session_destroy();
 

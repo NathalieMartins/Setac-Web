@@ -19,7 +19,7 @@ catch (Exception $e) {
   }
 }
 
-$_SESSION['usuario'] = $usuario;
+$_SESSION['usuario'] = serialize($usuario);
 header("Location: ../painel/");
 exit();
 
