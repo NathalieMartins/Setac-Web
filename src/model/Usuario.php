@@ -1,4 +1,6 @@
 <?php
+include('controller/Connection.php');
+
 class Usuario
 {
     public $id;
@@ -267,3 +269,4 @@ class Usuario
         ));
     }
 }
+?>
