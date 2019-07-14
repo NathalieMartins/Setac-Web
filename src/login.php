@@ -1,6 +1,6 @@
 <?php
 
-include_once('view/template.php');
+include_once('view/Template.php');
 
 $page = new Template();
 
