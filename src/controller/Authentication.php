@@ -1,6 +1,7 @@
 <?php
 
-include("../model/Usuario.php");
+include_once('../model/Usuario.php');
+include_once('../view/Template.php');
 
 $usuario = new Usuario();
 
@@ -11,14 +12,14 @@ try {
   $usuario->login($login, $senha);
 }
 catch (Exception $e) {
-
-  $page = new Template();
-
-  $page->title = "erro 401";
-
-  $page->render('erro.phtml');
-
+  if($e->getCode() == 10) {
+    header("Location: ../erro10.php");
+  }
 }
 
+switch($usuario->getAcesso()) {
+  case 1:
+    
+}
 
 ?>

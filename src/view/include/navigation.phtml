@@ -16,7 +16,13 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="field is-grouped is-dark">
+            <?php if($this->title === "erro") {?>
+              <a class="button is-link" href="login.php">
+                <strong>Voltar</strong>
+              </a>
+            <?php } else {?>
             <p class="control">
+              
               <?php if($this->title === "cadastro") {?>
               <a class="button is-link" href="cadastro.php">
                 <strong>Cadastro</strong>
@@ -38,6 +44,7 @@
               </a>
               <?php } ?>
             </p>
+            <?php } ?>
           </div>
         </div>
       </div>
