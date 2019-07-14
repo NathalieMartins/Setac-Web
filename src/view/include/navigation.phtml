@@ -16,35 +16,34 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="field is-grouped is-dark">
-            <?php if($this->title === "erro") {?>
-              <a class="button is-link" href="login.php">
-                <strong>Voltar</strong>
-              </a>
-            <?php } else {?>
+          <?php if($this->titulo === "erro") {?>
+            <a class="button is-link" href="login.php">
+              <strong>Voltar</strong>
+            </a>
+          <?php } else {?>
             <p class="control">
-              
-              <?php if($this->title === "cadastro") {?>
+            <?php if($this->titulo === "cadastro") {?>
               <a class="button is-link" href="cadastro.php">
                 <strong>Cadastro</strong>
               </a>
-              <?php } else { ?>
+            <?php } else { ?>
               <a class="button is-light" href="cadastro.php">
                 Cadastro
               </a>
-              <?php } ?>
+            <?php } ?>
             </p>
             <p class="control">
-              <?php if($this->title === "login") {?>
+            <?php if($this->titulo === "login") {?>
               <a class="button is-link" href="login.php">
                 <strong>Login</strong>
               </a>
-              <?php } else { ?>
+            <?php } else { ?>
               <a class="button is-light" href="login.php">
                 Login
               </a>
-              <?php } ?>
-            </p>
             <?php } ?>
+            </p>
+          <?php } ?>
           </div>
         </div>
       </div>
