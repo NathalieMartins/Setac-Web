@@ -1,17 +1,17 @@
-<?php include "../../view/include/title_config.php"; ?>
+<?php include "view/include/title_config.phtml"; ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
+    <?php include "view/include/head_tags.phtml"; ?>
 
-  <?php include "../../view/include/head_tags.php"; ?>
-
-    <link rel="stylesheet" type="text/css" href="/Setac-Web/src/view/css/login.css">
+    <link rel="stylesheet" type="text/css" href="view/css/login.css">
+    <link rel="stylesheet" type="text/css" href="view/css/general.css">
   </head>
 
   <body>
 
-    <?php include_once "../../view/include/navigation.php" ?>
+    <?php include_once "view/include/navigation.phtml" ?>
 
     <br>
     <div class="container">
@@ -25,9 +25,9 @@
         <div class="column">
           <div class="box">
             <div class="logo-setac">
-              <img src="/Setac-Web/src/view/img/logo.png" alt="Logo da SeTAC²">
+              <img src="view/img/logo.png" alt="Logo da SeTAC²">
             </div>
-            <form class="form" action="../../controller/Authentication.php" method="post">
+            <form class="form" action="controller/Authentication.php" method="post">
               <div class="field">
                 <label for="usuario" class="label">Usuário</label>
                 <div class="control">
@@ -42,7 +42,7 @@
               </div>
               <div class="field is-grouped">
                 <div class="control">
-                  <input type="submit" value="Entrar" class="button">
+                  <input type="submit" value="Entrar" class="button is-info has-text-weight-bold">
                 </div>
                 <div class="control">
                   <a href="" class="button is-text">Recuperar dados</a>
@@ -95,6 +95,6 @@
       </div>
     </div> -->
 
-    <script src="/Setac-Web/src/view/js/navbar.js"></script>
+    <script src="view/js/navbar.js"></script>
   </body>
 </html>
