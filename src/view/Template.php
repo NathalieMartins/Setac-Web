@@ -5,7 +5,7 @@ class Template {
   protected $vars = array();
   
   public function __construct($template_dir = null) {
-    $this->template_dir = 'view/';
+    $this->template_dir = 'view/templates/';
     
     if ($template_dir !== null) {
       // Check here whether this directory really exists
