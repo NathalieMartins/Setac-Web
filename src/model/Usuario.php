@@ -90,16 +90,15 @@ class Usuario {
   public function loadById($id) {
     $conexao = new Connection();
     
-    $results = $conexao->select("SELECT * FROM usuario WHERE id = :ID", array(
+    $resultts = $conexao->select("SELECT * FROM usuario WHERE id = :ID", array(
       ":ID" => $id
     ));
     
-    if(count($results) > 0) {
-      $this->setDados($results[0]);
+    if(count($resultts) > 0) {
+      $this->setDados($resultts[0]);
       return $this;
     }
   }
-  
   
   public static function getListOrderByNome() {
     $conexao = new Connection();
@@ -108,7 +107,6 @@ class Usuario {
     
     return $list;
   }
-  
   
   public static function searchByLoginOrdened($login) {
     $conexao = new Connection();
@@ -120,45 +118,35 @@ class Usuario {
     return $list;
   }
   
-  
-  public function login($login, $senha) {
-    session_start();
-    
+  public function login($login, $senha) {    
     $conexao = new Connection();
     
     //criptografamos a senha
     #password_hash($senha, PASSWORD_DEFAULT);
     
-    $resul = $conexao->select("SELECT * FROM usuario where login = :LOGIN AND senha = :SENHA", array(
+    $result = $conexao->select("SELECT * FROM usuario where login = :LOGIN AND senha = :SENHA", array(
       ":LOGIN" => $login,
       ":SENHA" => $senha
     ));
 
-    if(count($resul) == 0) {        
-      throw new Exception("Login ou Senha Inválidos");
+    if(count($result) > 0) {
+      $this->setDados($result[0]);
     }
     else {
-      $this->setDados($resul[0]);
-
-      $_SESSION['id'] = $this->getId();
-      $_SESSION['login'] = $this->getLogin();
-      $_SESSION['acesso'] = $this->getAcesso();
-
-      return $_SESSION;
+      throw new Exception("Login ou senha inválidos");
     }
   }
-
 
   #FALTA IMPLEMENTAR CORRETAMENTE
   public function insert() {
     $conexao = new Connection();
 
-    $resul = $conexao->select("SELECT * FROM usuario where login = :LOGIN or email = :EMAIL", array(
+    $result = $conexao->select("SELECT * FROM usuario where login = :LOGIN or email = :EMAIL", array(
       ":LOGIN" => $this->getLogin(),
       ":EMAIL" => $this->getEmail()
     ));
 
-    if(count($resul) == 0) {
+    if(count($result) == 0) {
       $insert = $conexao->select("CALL insere_usuario(:LOGIN, :SENHA, :EMAIL, :ACESSO, :NOME, :CPF, :TELEFONE)", array(
         ':LOGIN' => $this->getLogin(),
         ':SENHA' => $this->getSenha(),
@@ -183,12 +171,12 @@ class Usuario {
   public function update($login, $senha) {
     $conexao = new Connection();
 
-    $resul = $conexao->select("SELECT * FROM usuario where login = :LOGIN AND senha = :SENHA", array(
+    $result = $conexao->select("SELECT * FROM usuario where login = :LOGIN AND senha = :SENHA", array(
       ":LOGIN" => $login,
       ":SENHA" => $senha
     ));
 
-    if(count($resul) == 0) {
+    if(count($result) == 0) {
       $this->setLogin($login);
       $this->setSenha($senha);
 
