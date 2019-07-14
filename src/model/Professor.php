@@ -88,7 +88,7 @@ class Professor extends Usuario
             );
 
             if (count($insertProf) > 0) {
-                echo "Professor cadastrado com sucesso";
+                echo  "<script>alert('Professor cadastrado com sucesso!');</script>";
                 $this->setDadosProfessor($insertProf[0]);
 
                 return $this;
@@ -130,10 +130,11 @@ class Professor extends Usuario
                     ':ID' => $this->getId()
                 )
             );
+            echo  "<script>alert('Professor atualizado com sucesso!');</script>";
 
         } else {
 
-            throw new Exception("Professor e seus dados atualizados");
+            throw new Exception("Erro ao atualizar professor");
         }
     }
 
@@ -144,6 +145,8 @@ class Professor extends Usuario
         $conexao->query("DELETE FROM professor WHERE siape = :SIAPE", array(
             ':SIAPE' => $this->getSiape()
         ));
+
+        echo  "<script>alert('Professor excluído com sucesso!');</script>";
     }
 
     public function setDadosProfessor($dados)
