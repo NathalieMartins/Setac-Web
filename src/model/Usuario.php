@@ -1,4 +1,6 @@
 <?php
+include('controller/Connection.php');
+
 class Usuario
 {
     public $id;
@@ -10,7 +12,7 @@ class Usuario
     public $cpf;
     public $telefone;
 
-    /*function __construct($login, $senha, $email, $acesso, $nome, $cpf, $telefone){
+    function __construct($login, $senha, $email, $acesso, $nome, $cpf, $telefone){
               $this->setLogin($login);
               $this->setSenha($senha);
               $this->setEmail($email);
@@ -18,10 +20,8 @@ class Usuario
               $this->setNome($nome);
               $this->setCPF($cpf);
               $this->setTelefone($telefone);
-    }*/
+    }
 
-    function __construct()
-    { }
     public function getId()
     {
         return $this->id;
@@ -158,7 +158,7 @@ class Usuario
 
 
     #FALTA IMPLEMENTAR CORRETAMENTE
-    public function insert()
+    public function insert(/*$conexao*/)
     {
         $conexao = new Connection();
 
@@ -222,9 +222,9 @@ class Usuario
                 login = :LOGIN, senha = :SENHA 
                 WHERE id = :ID",
                 array(
-                    ':ID' => $this->getId(),
                     ':LOGIN' => $this->getLogin(),
-                    ':SENHA' => $this->getSenha()
+                    ':SENHA' => $this->getSenha(),
+                    ':ID' => $this->getId()
                 ));
 
                 echo "Atualizado com sucesso";
@@ -269,3 +269,4 @@ class Usuario
         ));
     }
 }
+?>

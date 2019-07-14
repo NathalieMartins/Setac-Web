@@ -1,4 +1,6 @@
+
 <?php
+    include ('Usuario.php');
 
 class Professor extends Usuario
 {
@@ -6,8 +8,9 @@ class Professor extends Usuario
     private $qualificacao;
     private $area;
 
-    public function __construct($siape,$qualificacao,$area)
+    public function __construct($login, $senha, $email, $acesso, $nome, $cpf, $telefone, $siape, $qualificacao, $area)
     {
+        parent::__construct($login, $senha, $email, $acesso, $nome, $cpf, $telefone);
         $this->setSiape($siape);
         $this->setQualificacao($qualificacao);
         $this->setArea($area);
@@ -43,52 +46,49 @@ class Professor extends Usuario
         return $this->area;
     }
 
-    public function loadByProfessor($siape,$qualificacao,$area)
+    public function loadByProfessor($siape)
     {
         $conexao = new Connection();
 
-        $results = $conexao->select("SELECT * FROM professor WHERE siape = :SIAPE, qualificacao = :QUALIFICACAO, area = :AREA", array(
-            ":SIAPE" => $siape,
-            ":QUALIFICACAO" => $qualificacao,
-            ":AREA" => $area
+        $results = $conexao->select("SELECT * FROM professor WHERE siape = :SIAPE", array(
+            ":SIAPE" => $siape
         ));
 
         if (count($results) > 0) {
-            $this->setDados($results[0]);
+            $this->setDadosProfessor($results[0]);
             return $this;
         }
     }
 
-    public function insert()
+    public function insertProfessor()
     {
         $conexao = new Connection();
 
         $resul = $conexao->select(
-            "SELECT * FROM professor where siape = :SIAPE, qualificacao = :QUALIFICACAO,
-             area = :AREA",
+            "SELECT * FROM professor where siape = :SIAPE",
             array(
-                ':SIAPE' => $this->getSiape(),
-                ':QUALIFICACAO' => $this->getQualificacao(),
-                ':AREA' => $this->getAcesso()
+                ':SIAPE' => $this->getSiape()
             )
         );
 
-
         if (count($resul) == 0) {
 
-            $insert = $conexao->select(
-                " CALL insere_usuario(:SIAPE, :QUALIFICACAO, :AREA)",
+            /*Antes de cadastrar um professor tem que cadastrar o usuário */
+            $this->insert(); //Insere o usuário relacionado ao professor
+
+            $insertProf = $conexao->select(
+                "CALL insere_professor(:SIAPE, :QUALIFICACAO, :AREA, :USERID)",
                 array(
                     ':SIAPE' => $this->getSiape(),
                     ':QUALIFICACAO' => $this->getQualificacao(),
-                    ':AREA' => $this->getAcesso()
+                    ':AREA' => $this->getAcesso(),
+                    ':USERID' => $this->getId()
                 )
             );
 
-            if (count($insert) > 0) {
-
-                $this->setDados($insert[0]);
-                echo "Professor(a) cadastrado com sucesso";
+            if (count($insertProf) > 0) {
+                echo "Professor cadastrado com sucesso";
+                $this->setDadosProfessor($insertProf[0]);
 
                 return $this;
             }
@@ -98,17 +98,17 @@ class Professor extends Usuario
         }
     }
 
-    public function update($siape, $qualificacao, $area)
+    public function updateProfessor($siape, $qualificacao, $area)
     {
 
         $conexao = new Connection();
 
         $resul = $conexao->select(
-            "SELECT * FROM professor where siape = :SIAPE, :QUALIFICACAO,:AREA = :SENHA",
+            "SELECT * FROM professor where siape = :SIAPE AND qualificacao = :QUALIFICACAO AND area :AREA",
             array(
                 ":SIAPE" => $siape,
                 ":QUALIFICACAO" => $qualificacao,
-                ":AREA" => $this->$area
+                ":AREA" => $area
             )
         );
 
@@ -120,23 +120,23 @@ class Professor extends Usuario
 
             $conexao->query(
                 "UPDATE professor SET 
-                qualificacao = :QUALIFICACAO , area = :AREA,
-                WHERE siape = :SIAPE",
+                siape :SIAPE, qualificacao = :QUALIFICACAO , area = :AREA,
+                WHERE id = :ID",
                 array(
+                    ":SIAPE" => $this->getSiape(),
                     ":QUALIFICACAO" => $this->getQualificacao(),
                     ":AREA" => $this->getArea(),
-                    ":SIAPE" => $this->getSiape()
+                    ':ID' => $this->getId()
                 )
             );
 
-            echo "Atualizado com sucesso";
         } else {
 
             throw new Exception("Professor e seus dados atualizados");
         }
     }
 
-    public function delete()
+    public function deleteProfessor()
     {
         $conexao = new Connection();
 
@@ -145,17 +145,34 @@ class Professor extends Usuario
         ));
     }
 
-    public function setDados($dados)
+    public function setDadosProfessor($dados)
     {
+        /*$this->setId($dados['id']);
+        $this->setLogin($dados['login']);
+        $this->setSenha($dados['senha']);
+        $this->setEmail($dados['email']);
+        $this->setAcesso($dados['acesso']);
+        $this->setNome($dados['nome']);
+        $this->setCPF($dados['cpf']);
+        $this->setTelefone($dados['telefone']);*/
 
-        $this->setSiape($dados['siape']),
-        $this->setQualificacao(($dados['qualificacao']),
-        $this->setArea($dados['area'])
+        $this->setSiape($dados['siape']);
+        $this->setQualificacao($dados['qualificacao']);
+        $this->setArea($dados['area']);
     }
 
     public function __toString()
     {
         return json_encode(array(
+            "id" => $this->getId(),
+            "login" => $this->getLogin(),
+            "senha" => $this->getSenha(),
+            "email" => $this->getEmail(),
+            "acesso" => $this->getAcesso(),
+            "nome" => $this->getNome(),
+            "cpf" => $this->getCPF(),
+            "telefone" => $this->getTelefone(),
+
             "siape" => $this->getSiape(),
             "qualificacao" => $this->getQualificacao(),
             "area" => $this->getArea(),
