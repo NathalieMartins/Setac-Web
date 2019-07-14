@@ -1,6 +1,7 @@
 
 <?php
-    include ('Usuario.php');
+
+include_once('Usuario.php');
 
 class Professor extends Usuario
 {

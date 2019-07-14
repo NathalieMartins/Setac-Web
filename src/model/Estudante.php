@@ -1,5 +1,7 @@
 <?php
 
+include_once('Usuario.php');
+
 class Estudante extends Usuario
 {
     private $registroAcademico;
@@ -103,5 +105,4 @@ class Estudante extends Usuario
 
         ));
     }
-}
 }
