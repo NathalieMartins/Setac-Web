@@ -1,4 +1,6 @@
+
 <?php
+    include ('Usuario.php');
 
 class Professor extends Usuario
 {
@@ -53,7 +55,7 @@ class Professor extends Usuario
         ));
 
         if (count($results) > 0) {
-            $this->setDados($results[0]);
+            $this->setDadosProfessor($results[0]);
             return $this;
         }
     }
@@ -69,9 +71,10 @@ class Professor extends Usuario
             )
         );
 
-        #$this->insert();
-
         if (count($resul) == 0) {
+
+            /*Antes de cadastrar um professor tem que cadastrar o usuário */
+            $this->insert(); //Insere o usuário relacionado ao professor
 
             $insertProf = $conexao->select(
                 "CALL insere_professor(:SIAPE, :QUALIFICACAO, :AREA, :USERID)",
@@ -83,13 +86,9 @@ class Professor extends Usuario
                 )
             );
 
-            var_dump($insertProf);
-
-
             if (count($insertProf) > 0) {
-                //print_r($insertProf);
-                var_dump($insertProf);
-                #$this->setDados($insertProf[0]);
+                echo "Professor cadastrado com sucesso";
+                $this->setDadosProfessor($insertProf[0]);
 
                 return $this;
             }
@@ -146,7 +145,7 @@ class Professor extends Usuario
         ));
     }
 
-    public function setDados($dados)
+    public function setDadosProfessor($dados)
     {
         /*$this->setId($dados['id']);
         $this->setLogin($dados['login']);
