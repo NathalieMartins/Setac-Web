@@ -1,13 +1,11 @@
 <?php
 
-namespace SeTAC\View;
-
 class Template {
   protected $template_dir;
   protected $vars = array();
   
   public function __construct($template_dir = null) {
-    $this->template_dir = 'view/templates/';
+    $this->template_dir = 'view/';
     
     if ($template_dir !== null) {
       // Check here whether this directory really exists
