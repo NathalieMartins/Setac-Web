@@ -27,23 +27,39 @@
             </div>
             <form class="form" action="controller/Authentication.php" method="post">
               <div class="field">
-                <label for="usuario" class="label">Usuário</label>
-                <div class="control">
+                <label for="usuario" class="label">
+                  <span>Usuário</span>
+                </label>
+                <div class="control has-icons-left">
                   <input type="text" name="usuario" class="input" required>
+                  <span class="icon has-text-dark is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
                 </div>
               </div>
               <div class="field">
-                <label for="senha" class="label">Senha</label>
-                <div class="control">
+                <label for="senha" class="label">
+                  <span>Senha</span>
+                </label>
+                <div class="control has-icons-left">
                   <input type="password" name="senha" class="input" required>
+                  <span class="icon has-text-dark is-left">
+                    <i class="fas fa-unlock-alt"></i>
+                  </span>
                 </div>
               </div>
               <div class="field is-grouped">
                 <div class="control">
-                  <input type="submit" value="Entrar" class="button is-info has-text-weight-bold">
+                  <button type="submit" class="button is-info">
+                    <i class="fas fa-sign-in-alt mr-10"></i>
+                    <span class="has-text-weight-bold">Login</span>
+                  </button>
                 </div>
                 <div class="control">
-                  <a href="" class="button is-text">Recuperar dados</a>
+                  <a href="" class="button is-white">
+                    <i class="fas fa-undo mr-10"></i>
+                    <span>Recuperar dados</span>
+                  </a>
                 </div>
               </div>
             </form>
