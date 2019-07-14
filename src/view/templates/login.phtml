@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <?php include_once($this->url_root . "view/include/head_tags.phtml"); ?>
+
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->url_root ?>view/css/login.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->url_root ?>view/css/general.css">
+  </head>
+
+  <body>
+
+    <?php include_once($this->url_root . "view/include/navigation.phtml"); ?>
+
+    <br>
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column">
+          <h1 class="title is-1">Login</h1>
+          <p>
+            Faça login com sua conta da SeTAC² e acesse todas as informações sobre a edição atual do evento!
+          </p>
+        </div>
+        <div class="column">
+          <div class="box">
+            <div class="logo-setac">
+              <img src="view/img/logo.png" alt="Logo da SeTAC²">
+            </div>
+            <form class="form" action="controller/Authentication.php" method="post">
+              <div class="field">
+                <label for="usuario" class="label">
+                  <span>Usuário</span>
+                </label>
+                <div class="control has-icons-left">
+                  <input type="text" name="usuario" class="input" required>
+                  <span class="icon has-text-dark is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="field">
+                <label for="senha" class="label">
+                  <span>Senha</span>
+                </label>
+                <div class="control has-icons-left">
+                  <input type="password" name="senha" class="input" required>
+                  <span class="icon has-text-dark is-left">
+                    <i class="fas fa-unlock-alt"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button type="submit" class="button is-info">
+                    <i class="fas fa-sign-in-alt mr-10"></i>
+                    <span class="has-text-weight-bold">Login</span>
+                  </button>
+                </div>
+                <div class="control">
+                  <a href="" class="button is-white">
+                    <i class="fas fa-undo mr-10"></i>
+                    <span>Recuperar dados</span>
+                  </a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="<?php echo $this->url_root ?>view/js/navbar.js"></script>
+  </body>
+</html>

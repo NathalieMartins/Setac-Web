@@ -16,35 +16,54 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="field is-grouped is-dark">
-            <?php if($this->title === "erro") {?>
-              <a class="button is-link" href="login.php">
-                <strong>Voltar</strong>
-              </a>
+          <?php if($this->modulo === "") {?>
+            <?php if($this->titulo === "erro") {?>
+            <a class="button is-link" href="login.php">
+              <strong>Voltar</strong>
+            </a>
             <?php } else {?>
             <p class="control">
-              
-              <?php if($this->title === "cadastro") {?>
+            <?php if($this->titulo === "cadastro") {?>
               <a class="button is-link" href="cadastro.php">
-                <strong>Cadastro</strong>
+                <i class="fas fa-user-plus mr-10"></i>
+                <span class="has-text-weight-bold">Cadastrar</span>
               </a>
-              <?php } else { ?>
-              <a class="button is-light" href="cadastro.php">
-                Cadastro
+            <?php } else { ?>
+              <a class="button is-dark" href="cadastro.php">
+                <i class="fas fa-user-plus mr-10"></i>
+                <span>Cadastrar</span>
               </a>
-              <?php } ?>
+            <?php } ?>
             </p>
             <p class="control">
-              <?php if($this->title === "login") {?>
+            <?php if($this->titulo === "login") {?>
               <a class="button is-link" href="login.php">
-                <strong>Login</strong>
+                <i class="fas fa-sign-in-alt mr-10"></i>
+                <span class="has-text-weight-bold">Login</span>
               </a>
-              <?php } else { ?>
-              <a class="button is-light" href="login.php">
-                Login
+            <?php } else { ?>
+              <a class="button is-dark" href="login.php">
+                <i class="fas fa-sign-in-alt mr-10"></i>
+                <span>Login</span>
               </a>
-              <?php } ?>
-            </p>
             <?php } ?>
+            </p>
+          <?php }} else if($this->modulo === "painel") {?>
+            <p class="control">
+              <a class="button is-dark" href="<?php echo $this->url_root ?>painel">
+                <i class="fas fa-user mr-10"></i>
+                <span>
+                  <?php echo $this->usuario->getLogin(); ?>
+                </span>
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-link" href="<?php echo $this->url_root ?>logout.php">
+                <i class="fas fa-sign-out-alt mr-10"></i>
+                <span class="has-text-weight-bold">Logout</span>
+              </a>
+            </p>
+          <?php } ?>
           </div>
         </div>
       </div>

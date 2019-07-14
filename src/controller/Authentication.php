@@ -1,7 +1,7 @@
 <?php
 
+include_once('../controller/Session.php');
 include_once('../model/Usuario.php');
-include_once('../view/Template.php');
 
 $usuario = new Usuario();
 
@@ -13,13 +13,14 @@ try {
 }
 catch (Exception $e) {
   if($e->getCode() == 10) {
+    session_destroy();
     header("Location: ../erro10.php");
+    exit();
   }
 }
 
-switch($usuario->getAcesso()) {
-  case 1:
-    
-}
+$_SESSION['usuario'] = serialize($usuario);
+header("Location: ../painel/");
+exit();
 
 ?>
