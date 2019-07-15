@@ -131,9 +131,11 @@ class Usuario {
 
     if(count($result) > 0) {
       $this->setDados($result[0]);
+      return 1;
     }
     else {
-      throw new Exception("Login ou senha inválidos", 10);
+      throw new InvalidArgumentException("Login ou senha inválidos", 101);
+      return 0;
     }
   }
 
@@ -164,7 +166,7 @@ class Usuario {
       }
     }
     else {
-      throw new Exception("Usuário ou email já cadastrados", 20);
+      throw new InvalidArgumentException("Usuário ou email já cadastrados", 102);
     }
   }
 
@@ -188,7 +190,7 @@ class Usuario {
 
       echo "Atualizado com sucesso";
     } else {
-      throw new Exception("Usuário ou email já cadastrados", 20);
+      throw new InvalidArgumentException("Usuário ou email já cadastrados", 102);
     }
   }
 
