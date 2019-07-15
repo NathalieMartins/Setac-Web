@@ -37,66 +37,67 @@ class Estudante extends Usuario
         }
     }
 
-    public static function getList()
+    public function insertEstudante()
     {
-        $sql = new Sql();
+        $conexao = new Connection();
 
-        return $sql->select("SELECT * FROM aluno");
-    }
-
-    public static function search($registroAcademico)
-    {
-
-        $sql = new Sql();
-
-        return $sql->select(
-            "SELECT * FROM aluno :SEARCH",
+        $resul = $conexao->select(
+            "SELECT * FROM aluno where registroAcademico = :REGISTROACADEMICO",
             array(
-                ':SEARCH' => "%" . $registroAcademico . "%"
+                ':REGISTROACADEMICO' => $this->getRegistroAcademico()
             )
         );
-    }
 
-    public function insert()
-    {
+        if (count($resul) == 0) {
+            
+            $this->insert();
 
-        $sql = new Sql();
+            $insertAluno = $conexao->select(
+                "CALL insere_aluno(:REGISTROACADEMICO, :USERID)",
+                array(
+                    ':REGISTROACADEMICO' => $this->getRegistroAcademico(),
+                    ':USERID' => $this->getId()
+                )
+            );
 
-        $results = $sql->select("CALL sp_estudante_insert(:REGISTROACADEMICO)", array(
-            ':REGISTROACADEMICO' => $this->getRegistroAcademico()
-        ));
+            if (count($insertAluno) > 0) {
+                echo  "<script>alert('Aluno Cadastrado com Sucesso!');</script>";
+                $this->setDadosEstudante($insertAluno[0]);
 
-        if (count($results) > 0) {
-            $this->setDados($results[0]);
+                return $this;
+            }
+        } else {
+
+            throw new Exception("Este Aluno ja possui cadastro!");
         }
     }
 
-    public function update($registroAcademico)
+    public function updateEstudante($registroAcademico)
     {
-
         $this->setDeslogin($registroAcademico);
 
-
-        $sql = new Sql();
-        $sql->query("UPDATE aluno SET resgitroAcademico = :REGISTROACADEMICO WHERE idusuario = :ID ", array(
+        $conexao = new Connection();
+        $conexao->query("UPDATE aluno SET resgitroAcademico = :REGISTROACADEMICO WHERE idusuario = :ID ", array(
             ':REGISTROACADEMICO' => $this->getRegistroAcademico(),
 
         ));
     }
 
-    public function delete()
+    public function deleteEstudante()
     {
-        $sql = new Sql();
-        $sql->query("DELETE FROM aluno WHERE idusuario = :ID", array(
-            ':ID' => $this->getRegistroAcademico()
+        $conexao = new Connection();
+        $conexao->query("DELETE FROM aluno WHERE registroAcademico = :REGISTROACADEMICO", array(
+            ':REGISTROACADEMICO' => $this->getRegistroAcademico()
         ));
 
         $this->setRegistroAcademico(0);
+
+        echo  "<script>alert('Aluno excluído com sucesso!');</script>";
     }
 
-    public function setDados($dados)
+    public function setDadosEstudante($dados)
     {
-        $this->setAlunos($dados['registroAcademico']);
+        $this->setRegistroAcademico($dados['registroAcademico']);
     }
 
     public function __toString()
