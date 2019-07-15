@@ -9,7 +9,7 @@ class Professor extends Usuario
     private $qualificacao;
     private $area;
 
-    public function __construct($login, $senha, $email, $acesso, $nome, $cpf, $telefone, $siape, $qualificacao, $area)
+    public function __construct($login = "", $senha = "", $email = "", $acesso = "", $nome = "", $cpf = "", $telefone = "", $siape = "", $qualificacao = "", $area = "")
     {
         parent::__construct($login, $senha, $email, $acesso, $nome, $cpf, $telefone);
         $this->setSiape($siape);
@@ -47,7 +47,7 @@ class Professor extends Usuario
         return $this->area;
     }
 
-    public function loadByProfessor($siape)
+    public function loadBySiape($siape)
     {
         $conexao = new Connection();
 

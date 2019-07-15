@@ -23,8 +23,9 @@ require_once("../model/Estudante.php");
 
 #$prof = new Professor("test", "1234", "test@hotmail.com", 1, "TESTE", "01234567890", "4599236092", "1838075", "MESTRE", "COMPUTAÇÃO GRAFICA");
 #$prof->insertProfessor();
-#$result = $prof->loadByProfessor('1838075');
-#print_r($result);
+$prof = new Professor();
+$result = $prof->loadBySiape("1");
+print_r($result);
 #$prof->updateProfessor('1838075','DOUTOR','37');
 # print_r($prof);
 #$prof->deleteProfessor('1838075');
@@ -34,7 +35,7 @@ require_once("../model/Estudante.php");
 
 # Teste de classe Estudante
 
-$est = new Estudante("lalalal", "1234", "lalala@hotmail.com", 1, "TESTE", "01234567890", "4599236092", "1808090");
+#$est = new Estudante("lalalal", "1234", "lalala@hotmail.com", 1, "TESTE", "01234567890", "4599236092", "1808090");
 #$est->insertEstudante();
-$est->deleteEstudante();
+#$est->deleteEstudante();
 #print_r($user); 

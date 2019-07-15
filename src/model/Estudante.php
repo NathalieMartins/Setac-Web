@@ -7,7 +7,7 @@ class Estudante extends Usuario
     private $registroAcademico;
 
 
-    public function __construct($login, $senha, $email, $acesso, $nome, $cpf, $telefone,$registroAcademico)
+    public function __construct($login = "", $senha = "", $email = "", $acesso = "", $nome = "", $cpf = "", $telefone = "",$registroAcademico = "")
     {
         parent::__construct($login, $senha, $email, $acesso, $nome, $cpf, $telefone);
         $this->setRegistroAcademico($registroAcademico);
