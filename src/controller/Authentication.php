@@ -9,15 +9,26 @@ $login = $_POST["usuario"];
 $senha = $_POST["senha"];
 
 try {
-  $usuario->login($login, $senha);
+  $ret = $usuario->login($login, $senha);
 }
-catch (Exception $e) {
-  if($e->getCode() == 10) {
-    session_destroy();
-    header("Location: ../erro10.php");
-    exit();
+catch (InvalidArgumentException $e) {
+  session_destroy();
+
+  if($e->getCode() == 101) {
+    header("Location: ../erro/101.php");
   }
+  if($e->getCode() == 102) {
+    header("Location: ../erro/102.php");
+  }
+
+  exit();
 }
+catch (PDOException $e) {
+  session_destroy();
+  header("Location: ../erro/201.php");
+  exit();
+}
+
 
 $_SESSION['usuario'] = serialize($usuario);
 header("Location: ../painel/");
