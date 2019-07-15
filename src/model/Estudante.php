@@ -20,15 +20,15 @@ class Estudante extends Usuario
 
     public function setRegistroAcademico($registroAcademico)
     {
-        $this->$registroAcademico = $registroAcademico;
+        $this->registroAcademico = $registroAcademico;
     }
 
     public function loadByRegistroAcademico($registroAcademico)
     {
 
-        $sql = new Sql();
+        $conexao = new Connection();
 
-        $results = $sql->select("SELECT * FROM aluno WHERE registroAcademico = :REGISTROACADEMICO", array(
+        $results = $conexao->select("SELECT * FROM aluno WHERE registroAcademico = :REGISTROACADEMICO", array(
             ":REGISTROACADEMICO" => $registroAcademico
         ));
 
