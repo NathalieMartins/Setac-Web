@@ -30,7 +30,6 @@ class Atividade
         return $this->id;
     }
 
-
     public function setTitulo($titulo)
     {
         $this->titulo = $titulo;
@@ -41,7 +40,6 @@ class Atividade
         return $this->titulo;
     }
 
-
     public function setDescricao($descricao)
     {
         $this->descricao = $descricao;
@@ -51,7 +49,6 @@ class Atividade
     {
         return $this->descricao;
     }
-
 
     public function setlimiteInscricao($limiteInscricao)
     {
@@ -93,9 +90,7 @@ class Atividade
         return this->cargaHoraria;
     }
 
-
-
-    public function loadByAtividade($id,$titulo,$descricao,$limiteInscricao,$lugar,$status,$cargaHoraria)
+    public function loadByAtividade($id, $titulo, $descricao, $limiteInscricao, $lugar, $status, $cargaHoraria)
     {
         $conexao = new Connection();
 
