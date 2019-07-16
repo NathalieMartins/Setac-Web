@@ -14,18 +14,18 @@
     
     <div class="container">
       <div class="columns">
-        <div class="column is-2">
-          <div class="mb-20">
+        <div class="column is-3">
+          <div class="mb-15">
             <figure class="image has-image-centered is-128x128">
               <img src="<?php echo $this->url_root ?>view/img/logo.png" alt="Logo da SeTAC">
             </figure>
           </div>
 
           <div id="show_menu" class="is-hidden">
-            <button class="button is-link is-bold is-fullwidth" onclick="switch_visibility('aside_menu');">Menu</button>
+            <button class="button is-link is-fullwidth is-uppercase has-text-weight-bold" onclick="switch_visibility('aside_menu');">Menu</button>
           </div>
 
-          <aside id="aside_menu" class="menu is-hidden">
+          <aside id="aside_menu" class="menu is-hidden-mobile">
             <ul class="menu-list">
               <p class="menu-label">
                 Menu
