@@ -57,3 +57,5 @@ select * from  usuario;
 select * from  aluno;
 
 select * from  professor;
+
+select * from usuario_has_atividade;

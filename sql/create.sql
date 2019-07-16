@@ -24,7 +24,7 @@ USE `setac` ;
 -- Table `setac`.`usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `setac`.`usuario` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `login` VARCHAR(45) NULL DEFAULT NULL,
   `senha` VARCHAR(45) NULL DEFAULT NULL,
   `email` VARCHAR(45) NULL DEFAULT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `setac`.`usuario` (
   `nome` VARCHAR(45) NULL DEFAULT NULL,
   `cpf` CHAR(11) NULL DEFAULT NULL,
   `telefone` CHAR(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`user_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -41,13 +41,13 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `setac`.`aluno`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `setac`.`aluno` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `aluno_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `registroAcademico` VARCHAR(45) NULL DEFAULT NULL,
   `usuario_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`aluno_id`),
   CONSTRAINT `fk_aluno_usuario1`
     FOREIGN KEY (`usuario_id`)
-    REFERENCES `setac`.`usuario` (`id`)
+    REFERENCES `setac`.`usuario` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -58,7 +58,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `setac`.`atividade`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `setac`.`atividade` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `atividade_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `titulo` VARCHAR(45) NULL DEFAULT NULL,
   `descricao` VARCHAR(45) NULL DEFAULT NULL,
   `limiteInscricao` INT NULL DEFAULT NULL,
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `setac`.`atividade` (
   `cargaHoraria` VARCHAR(45) NULL DEFAULT NULL,
   `ministrador` VARCHAR(45) NULL DEFAULT NULL,
   `emailMinistrador` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`atividade_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -76,15 +76,15 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `setac`.`professor`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `setac`.`professor` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `professor_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `siape` VARCHAR(45) NULL DEFAULT NULL,
   `qualificacao` VARCHAR(45) NULL DEFAULT NULL,
   `area` VARCHAR(45) NULL DEFAULT NULL,
   `usuario_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`professor_id`),
   CONSTRAINT `fk_professor_usuario1`
     FOREIGN KEY (`usuario_id`)
-    REFERENCES `setac`.`usuario` (`id`)
+    REFERENCES `setac`.`usuario` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -100,12 +100,12 @@ CREATE TABLE IF NOT EXISTS `setac`.`usuario_has_atividade` (
   PRIMARY KEY (`usuario_id`, `atividade_id`),
   CONSTRAINT `fk_usuario_has_atividade_usuario1`
     FOREIGN KEY (`usuario_id`)
-    REFERENCES `setac`.`usuario` (`id`)
+    REFERENCES `setac`.`usuario` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuario_has_atividade_atividade1`
     FOREIGN KEY (`atividade_id`)
-    REFERENCES `setac`.`atividade` (`id`)
+    REFERENCES `setac`.`atividade` (`atividade_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -119,20 +119,19 @@ USE `setac` ;
 
 DELIMITER //
 
-CREATE PROCEDURE 'insere_usuaro_has_atividade' (
+CREATE PROCEDURE `insere_usuaro_has_atividade`
 (Uusuario_id iNT, Aatividade_id INT)
 BEGIN
   INSERT INTO usuario_has_atividade (usuario_id, atividade_id)
-  VALUES (Uusuario_id, Aatividade_id)
-END
-)//
+  VALUES (Uusuario_id, Aatividade_id);
+END//
 
 CREATE PROCEDURE `insere_usuario`
 (Ulogin VARCHAR(45), Usenha VARCHAR(45), Uemail VARCHAR(45), Uacesso VARCHAR(45), Unome VARCHAR(45), Ucpf CHAR(11), Utelefone CHAR(11))
 BEGIN
 	INSERT INTO usuario (login, senha, email, acesso, nome, cpf, telefone)
     VALUES (Ulogin, Usenha, Uemail, Uacesso, Unome, Ucpf, Utelefone);
-	SELECT * FROM usuario WHERE id = LAST_INSERT_ID();
+	SELECT * FROM usuario WHERE user_id = LAST_INSERT_ID();
 END//
 
 -- -----------------------------------------------------
@@ -144,7 +143,7 @@ CREATE PROCEDURE `insere_aluno`
 BEGIN
 	INSERT INTO aluno (registroAcademico, usuario_id)
     VALUES (AregistroAcademico, AusuarioId);
-	SELECT * FROM aluno WHERE id = LAST_INSERT_ID();
+	SELECT * FROM aluno WHERE aluno_id = LAST_INSERT_ID();
 END//
 
 -- -----------------------------------------------------
@@ -156,7 +155,7 @@ CREATE PROCEDURE `insere_professor`
 BEGIN
 	INSERT INTO professor (siape, qualificacao, area, usuario_id)
     VALUES (Psiape, Pqualificacao, Parea, PusuarioId);
-	SELECT * FROM professor WHERE id = LAST_INSERT_ID();
+	SELECT * FROM professor WHERE professor_id = LAST_INSERT_ID();
 END//
 
 -- -----------------------------------------------------
@@ -168,7 +167,7 @@ CREATE PROCEDURE `insere_atividade`
 BEGIN
 	INSERT INTO atividade (titulo, descricao, limiteInscricao, lugar, status, cargaHoraria, ministrador, emailMinistrador)
     VALUES (Atitulo, Adescricao, AlimiteInscricao, Alugar, Astatus, AcargaHoraria, Aministrador, AemailMinistrador);
-	SELECT * FROM atividade WHERE id = LAST_INSERT_ID();
+	SELECT * FROM atividade WHERE atividade_id = LAST_INSERT_ID();
 END//
 
 SET SQL_MODE=@OLD_SQL_MODE;
