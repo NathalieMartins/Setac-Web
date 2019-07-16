@@ -199,6 +199,8 @@ class Usuario {
     $conexao->query("DELETE FROM usuario WHERE id = :ID", array(
       ':ID' => $this->getId()
     ));
+
+    echo  "<script>alert('Usuário excluído com sucesso!');</script>";
   }
 
   public function setDados($dados) {

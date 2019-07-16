@@ -79,6 +79,8 @@ class Professor extends Usuario
         if (count($result2) > 0) {
             $this->setDadosProfessor($result2[0]);
             return $this;
+        }else{
+            echo  "<script>alert('Professor não encontrado!');</script>";
         }
     }
 
@@ -124,9 +126,9 @@ class Professor extends Usuario
     {
 
         $conexao = new Connection();
-
+        
         $resul = $conexao->select(
-            "SELECT * FROM professor where siape = :SIAPE AND qualificacao = :QUALIFICACAO AND area :AREA",
+            "UPDATE professor SET qualificacao = :QUALIFICACAO, area = :AREA WHERE siape = :SIAPE",
             array(
                 ":SIAPE" => $siape,
                 ":QUALIFICACAO" => $qualificacao,
@@ -159,12 +161,12 @@ class Professor extends Usuario
         }
     }
 
-    public function deleteProfessor()
+    public function deleteProfessor($siape)
     {
         $conexao = new Connection();
 
         $conexao->query("DELETE FROM professor WHERE siape = :SIAPE", array(
-            ':SIAPE' => $this->getSiape()
+            ':SIAPE' => $siape
         ));
 
         echo  "<script>alert('Professor excluído com sucesso!');</script>";
