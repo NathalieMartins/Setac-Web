@@ -126,9 +126,9 @@ class Professor extends Usuario
     {
 
         $conexao = new Connection();
-
+        
         $resul = $conexao->select(
-            "SELECT * FROM professor where siape = :SIAPE AND qualificacao = :QUALIFICACAO AND area :AREA",
+            "UPDATE professor SET qualificacao = :QUALIFICACAO, area = :AREA WHERE siape = :SIAPE",
             array(
                 ":SIAPE" => $siape,
                 ":QUALIFICACAO" => $qualificacao,
