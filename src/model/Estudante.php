@@ -116,18 +116,10 @@ class Estudante extends Usuario
 
         echo  "<script>alert('Aluno excluído com sucesso!');</script>";
     }
-
+    
     public function setDadosEstudante($dados)
     {
-        $this->setId($dados['user_id']);
-        $this->setLogin($dados['login']);
-        $this->setSenha($dados['senha']);
-        $this->setEmail($dados['email']);
-        $this->setAcesso($dados['acesso']);
-        $this->setNome($dados['nome']);
-        $this->setCPF($dados['cpf']);
-        $this->setTelefone($dados['telefone']);
-
+        $this->setId($dados['aluno_id']);
         $this->setRegistroAcademico($dados['registroAcademico']);
         $this->setIdUsuario($dados['usuario_id']);
     }
