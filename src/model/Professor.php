@@ -69,7 +69,7 @@ class Professor extends Usuario
 
         $result2 = $conexao->select(
             "SELECT * FROM professor inner join usuario 
-            on :IDUSUARIO = usuario.id AND siape = :SIAPE",
+            on usuario.user_id = :IDUSUARIO AND siape = :SIAPE",
             array(
                 ":IDUSUARIO" => $results[0]["usuario_id"],
                 ":SIAPE" => $siape
@@ -145,7 +145,7 @@ class Professor extends Usuario
             $conexao->query(
                 "UPDATE professor SET 
                 siape :SIAPE, qualificacao = :QUALIFICACAO , area = :AREA,
-                WHERE id = :ID",
+                WHERE professor_id = :ID",
                 array(
                     ":SIAPE" => $this->getSiape(),
                     ":QUALIFICACAO" => $this->getQualificacao(),
@@ -174,7 +174,7 @@ class Professor extends Usuario
 
     public function setDadosProfessor($dados)
     {
-        $this->setId($dados['id']);
+        $this->setId($dados['user_id']);
         $this->setLogin($dados['login']);
         $this->setSenha($dados['senha']);
         $this->setEmail($dados['email']);
@@ -192,7 +192,7 @@ class Professor extends Usuario
     public function __toString()
     {
         return json_encode(array(
-            "id" => $this->getId(),
+            "user_id" => $this->getId(),
             "login" => $this->getLogin(),
             "senha" => $this->getSenha(),
             "email" => $this->getEmail(),

@@ -45,7 +45,7 @@ class Estudante extends Usuario
 
         $result2 = $conexao->select(
             "SELECT * FROM aluno inner join usuario
-            on :IDUSUARIO = usuario.id AND registroAcademico = :REGISTROACADEMICO",
+            on :IDUSUARIO = usuario.user_id AND registroAcademico = :REGISTROACADEMICO",
             array(
                 ":IDUSUARIO" => $results[0]["usuario_id"],
                 ":REGISTROACADEMICO" => $registroAcademico
@@ -94,14 +94,15 @@ class Estudante extends Usuario
         }
     }
 
+    #Arrumar esta função colocar o atributo certo no WHERE e seu parâmetro no Array
     public function updateEstudante($registroAcademico)
     {
         $this->setDeslogin($registroAcademico);
 
         $conexao = new Connection();
-        $conexao->query("UPDATE aluno SET resgitroAcademico = :REGISTROACADEMICO WHERE idusuario = :ID ", array(
+        $conexao->query("UPDATE aluno SET resgitroAcademico = :REGISTROACADEMICO WHERE  = :ID ", array(
             ':REGISTROACADEMICO' => $this->getRegistroAcademico(),
-
+            
         ));
     }
 
@@ -119,7 +120,7 @@ class Estudante extends Usuario
 
     public function setDadosEstudante($dados)
     {
-        $this->setId($dados['id']);
+        $this->setId($dados['user_id']);
         $this->setLogin($dados['login']);
         $this->setSenha($dados['senha']);
         $this->setEmail($dados['email']);
@@ -135,7 +136,7 @@ class Estudante extends Usuario
     public function __toString()
     {
         return json_encode(array(
-            "id" => $this->getId(),
+            "user_id" => $this->getId(),
             "login" => $this->getLogin(),
             "senha" => $this->getSenha(),
             "email" => $this->getEmail(),

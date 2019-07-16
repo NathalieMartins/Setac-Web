@@ -90,7 +90,7 @@ class Usuario {
   public function loadById($id) {
     $conexao = new Connection();
     
-    $resultts = $conexao->select("SELECT * FROM usuario WHERE id = :ID", array(
+    $resultts = $conexao->select("SELECT * FROM usuario WHERE user_id = :ID", array(
       ":ID" => $id
     ));
     
@@ -138,8 +138,7 @@ class Usuario {
       return 0;
     }
   }
-
-  #FALTA IMPLEMENTAR CORRETAMENTE
+  
   public function insert() {
     $conexao = new Connection();
 
@@ -182,7 +181,7 @@ class Usuario {
       $this->setLogin($login);
       $this->setSenha($senha);
 
-      $conexao->query("UPDATE usuario SET login = :LOGIN, senha = :SENHA WHERE id = :ID", array(
+      $conexao->query("UPDATE usuario SET login = :LOGIN, senha = :SENHA WHERE user_id = :ID", array(
         ':LOGIN' => $this->getLogin(),
         ':SENHA' => $this->getSenha(),
         ':ID' => $this->getId()
@@ -196,7 +195,7 @@ class Usuario {
 
   public function delete() {
     $conexao = new Connection();
-    $conexao->query("DELETE FROM usuario WHERE id = :ID", array(
+    $conexao->query("DELETE FROM usuario WHERE user_id = :ID", array(
       ':ID' => $this->getId()
     ));
 
@@ -204,7 +203,7 @@ class Usuario {
   }
 
   public function setDados($dados) {
-    $this->setId($dados['id']);
+    $this->setId($dados['user_id']);
     $this->setLogin($dados['login']);
     $this->setSenha($dados['senha']);
     $this->setEmail($dados['email']);
@@ -216,7 +215,7 @@ class Usuario {
 
   public function __toString() {
     return json_encode(array(
-      "id" => $this->getId(),
+      "user_id" => $this->getId(),
       "login" => $this->getLogin(),
       "senha" => $this->getSenha(),
       "email" => $this->getEmail(),
