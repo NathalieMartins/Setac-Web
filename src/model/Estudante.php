@@ -94,15 +94,14 @@ class Estudante extends Usuario
         }
     }
 
-    #Arrumar esta função colocar o atributo certo no WHERE e seu parâmetro no Array
     public function updateEstudante($registroAcademico)
     {
         $this->setDeslogin($registroAcademico);
 
         $conexao = new Connection();
-        $conexao->query("UPDATE aluno SET resgitroAcademico = :REGISTROACADEMICO WHERE  = :ID ", array(
-            ':REGISTROACADEMICO' => $this->getRegistroAcademico(),
-            
+        $conexao->query("UPDATE aluno SET resgitroAcademico = :REGISTROACADEMICO WHERE  registroAcademico = :ID ", array(
+            ':REGISTROACADEMICO' =>$registroAcademico,
+            ':ID' =>$this->getRegistroAcademico()
         ));
     }
 
