@@ -36,13 +36,13 @@ require_once("../model/Estudante.php");
 
 # Teste de classe Estudante
 
-#$est = new Estudante("lalalal", "1234", "lalala@hotmail.com", 1, "TESTE", "01234567890", "4599236092", "1808090");
-#$est->insertEstudante();
+$est = new Estudante("liaefho", "1234", "aeifh@hotmail.com", 1, "TESTE", "01234567890", "4599236092", "30000");
+$est->insertEstudante();
+
 #$est->deleteEstudante();
 #print_r($user); 
 
-$aluno = new Estudante();
-
-$result = $aluno->loadByRegistroAcademico("1808067");
-
+#$result = $aluno->loadByRegistroAcademico("1808067");
 #print_r($result);
+
+#$est->updateEstudante("1802586");

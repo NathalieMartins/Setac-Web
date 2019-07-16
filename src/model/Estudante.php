@@ -8,7 +8,7 @@ class Estudante extends Usuario
     private $idUsuario;
 
 
-    public function __construct($login = "", $senha = "", $email = "", $acesso = "", $nome = "", $cpf = "", $telefone = "",$registroAcademico = "")
+    public function __construct($login = "", $senha = "", $email = "", $acesso = "", $nome = "", $cpf = "", $telefone = "", $registroAcademico = "")
     {
         parent::__construct($login, $senha, $email, $acesso, $nome, $cpf, $telefone);
         $this->setRegistroAcademico($registroAcademico);
@@ -71,7 +71,7 @@ class Estudante extends Usuario
         );
 
         if (count($resul) == 0) {
-            
+
             $this->insert();
 
             $insertAluno = $conexao->select(
@@ -100,8 +100,8 @@ class Estudante extends Usuario
 
         $conexao = new Connection();
         $conexao->query("UPDATE aluno SET resgitroAcademico = :REGISTROACADEMICO WHERE  registroAcademico = :ID ", array(
-            ':REGISTROACADEMICO' =>$registroAcademico,
-            ':ID' =>$this->getRegistroAcademico()
+            ':REGISTROACADEMICO' => $registroAcademico,
+            ':ID' => $this->getRegistroAcademico()
         ));
     }
 
@@ -116,7 +116,7 @@ class Estudante extends Usuario
 
         echo  "<script>alert('Aluno excluído com sucesso!');</script>";
     }
-    
+
     public function setDadosEstudante($dados)
     {
         $this->setId($dados['user_id']);
@@ -129,6 +129,13 @@ class Estudante extends Usuario
         $this->setTelefone($dados['telefone']);
 
         $this->setId($dados['aluno_id']);
+        $this->setLogin($dados['login']);
+        $this->setSenha($dados['senha']);
+        $this->setEmail($dados['email']);
+        $this->setAcesso($dados['acesso']);
+        $this->setNome($dados['nome']);
+        $this->setCPF($dados['cpf']);
+        $this->setTelefone($dados['telefone']);
         $this->setRegistroAcademico($dados['registroAcademico']);
         $this->setIdUsuario($dados['usuario_id']);
     }

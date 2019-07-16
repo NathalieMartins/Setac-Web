@@ -195,7 +195,7 @@ class Usuario {
 
   public function delete() {
     $conexao = new Connection();
-    $conexao->query("DELETE FROM usuario WHERE user_id = :ID", array(
+    $conexao->query("DELETE FROM usuario WHERE `user_id` = :ID", array(
       ':ID' => $this->getId()
     ));
 
