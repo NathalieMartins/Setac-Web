@@ -116,63 +116,83 @@ class Atividade
         }
     }
 
-    public function insert()
-  {
-
-    $sql = new Sql();
-
-    $results = $sql->select("CALL sp_atividades_insert(:ID, :TITULO, :DESCRICAO, :LIMITEINSCRICAO, :LUGAR, :STATUS, :CARGAHORARIA)", array(
-      ':ID' => $this->getId(),
-      ':TITULO' => $this->getTitulo(),
-      ':DESCRICAO' => $this->getTitulo(),
-      ':LIMITEINSCRICAO' => $this->getTitulo(),
-      ':LUGAR' => $this->getTitulo(),
-      ':STATUS' => $this->getTitulo(),
-      ':CARGAHORARIA' => $this->getTitulo()
-    ));
-
-    if (count($results) > 0) {
-      $this->setDados($results[0]);
-    }
-  }
-
-  public function update($titulo, $descricao,$limiteInscricao,$lugar,$status,$cargaHoraria)
-  {
-
-    $this->setTitulo($titulo);
-    $this->setDescricao($descricao);
-    $this->setLugar($lugar);
-    $this->setlimiteInscricao($limiteInscricao);
-    $this->setStatus($status);
-    $this->setCargaHoraria($cargaHoraria);
-
-    $sql = new Sql();
-    $sql->query("UPDATE atividade SET titulo = :TITULO, descricao = :DESCRICAO, limieteInscricao = :LIMITEINSCRICAO, lugar = :LUGAR, `status` = :`STATUS ` WHERE idusuario = :ID", array(
-        ':ID' => $this->getId(),
-        ':TITULO' => $this->getTitulo(),
-        ':DESCRICAO' => $this->getTitulo(),
-        ':LIMITEINSCRICAO' => $this->getTitulo(),
-        ':LUGAR' => $this->getTitulo(),
-        ':STATUS' => $this->getTitulo(),
-        ':CARGAHORARIA' => $this->getTitulo()
-    ));
-  }
-
-  public function delete()
-  {
-    $sql = new Sql();
-    $sql->query("DELETE FROM atividade WHERE id = :ID", array(
-      ':ID' => $this->getId()
-    ));
-
-    $this->setId(0);
-
-  }
-
-
-    public function setDados($dados)
+    public function insertAtividade()
     {
+        $conexao = new Connection();
 
+        $resul = $conexao->select(
+            "SELECT * FROM atividade where id = :ID",
+            array(
+                ':ID' => $this->getId()
+            )
+        );
+
+        if (count($resul) == 0) {
+
+            $this->insert();
+
+            $insertAtividade = $conexao->select(
+
+                "CALL sp_atividades_insert(:ID, :TITULO, :DESCRICAO, :LIMITEINSCRICAO, :LUGAR, :STATUS, :CARGAHORARIA)",
+            array(
+                ':ID' => $this->getId(),
+                ':TITULO' => $this->getTitulo(),
+                ':DESCRICAO' => $this->getTitulo(),
+                ':LIMITEINSCRICAO' => $this->getTitulo(),
+                ':LUGAR' => $this->getTitulo(),
+                ':STATUS' => $this->getTitulo(),
+                ':CARGAHORARIA' => $this->getTitulo()
+            ));
+
+            if (count($insertAtividade) > 0) {
+                echo  "<script>alert('Atividade cadastrada com sucesso!');</script>";
+                $this->setDadosAtividade($insertAtividade[0]);
+
+                return $this;
+            }
+        } else {
+
+            throw new Exception("Esta atividade já possui cadastro!");
+        }
+    }
+
+
+    public function updateAtividade($titulo, $descricao,$limiteInscricao,$lugar,$status,$cargaHoraria)
+    {
+        $this->setTitulo($titulo);
+        $this->setDescricao($descricao);
+        $this->setLugar($lugar);
+        $this->setlimiteInscricao($limiteInscricao);
+        $this->setStatus($status);
+        $this->setCargaHoraria($cargaHoraria);
+
+        $conexao = new Connection();
+
+        $conexao->query("UPDATE atividade SET titulo = :TITULO, descricao = :DESCRICAO, limieteInscricao = :LIMITEINSCRICAO, lugar = :LUGAR, `status` = :`STATUS ` WHERE idusuario = :ID", array(
+            ':ID' => $this->getId(),
+            ':TITULO' => $this->getTitulo(),
+            ':DESCRICAO' => $this->getTitulo(),
+            ':LIMITEINSCRICAO' => $this->getTitulo(),
+            ':LUGAR' => $this->getTitulo(),
+            ':STATUS' => $this->getTitulo(),
+            ':CARGAHORARIA' => $this->getTitulo()
+        ));
+    }
+
+    public function deleteAtividade()
+    {
+        $conexao = new Connection();
+
+        $conexao->query("DELETE FROM atividade WHERE id = :ID", array(
+            ':ID' => $this->getId()
+        ));
+
+        $this->setId(0);
+    }
+
+
+    public function setDadosAtividade($dados)
+    {
         $this->setId($dados['id']);
         $this->setTitulo(($dados['titulo']);
         $this->setDescricao($dados['descricao']);
