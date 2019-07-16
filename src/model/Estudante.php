@@ -96,7 +96,7 @@ class Estudante extends Usuario
 
     public function updateEstudante($registroAcademico)
     {
-        $this->setDeslogin($registroAcademico);
+        $this->setRegistroAcademico($registroAcademico);
 
         $conexao = new Connection();
         $conexao->query("UPDATE aluno SET resgitroAcademico = :REGISTROACADEMICO WHERE  registroAcademico = :ID ", array(
@@ -119,6 +119,15 @@ class Estudante extends Usuario
     
     public function setDadosEstudante($dados)
     {
+        $this->setId($dados['user_id']);
+        $this->setLogin($dados['login']);
+        $this->setSenha($dados['senha']);
+        $this->setEmail($dados['email']);
+        $this->setAcesso($dados['acesso']);
+        $this->setNome($dados['nome']);
+        $this->setCPF($dados['cpf']);
+        $this->setTelefone($dados['telefone']);
+
         $this->setId($dados['aluno_id']);
         $this->setRegistroAcademico($dados['registroAcademico']);
         $this->setIdUsuario($dados['usuario_id']);
@@ -127,6 +136,15 @@ class Estudante extends Usuario
     public function __toString()
     {
         return json_encode(array(
+            "user_id" => $this->getId(),
+            "login" => $this->getLogin(),
+            "senha" => $this->getSenha(),
+            "email" => $this->getEmail(),
+            "acesso" => $this->getAcesso(),
+            "nome" => $this->getNome(),
+            "cpf" => $this->getCPF(),
+            "telefone" => $this->getTelefone(),
+            
             "aluno_id" => $this->getId(),   
             "registroAcademico" => $this->getRegistroAcademico(),
             "usuario_id" => $this->getIdUsuario()
