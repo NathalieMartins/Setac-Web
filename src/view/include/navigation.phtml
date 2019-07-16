@@ -18,7 +18,7 @@
           <div class="field is-grouped is-dark">
           <?php if($this->modulo === "") {?>
             <?php if($this->titulo === "erro") {?>
-            <a class="button is-link" href="login.php">
+            <a class="button is-link" href="<?php echo $this->url_root ?>login.php">
               <strong>Voltar</strong>
             </a>
             <?php } else {?>
