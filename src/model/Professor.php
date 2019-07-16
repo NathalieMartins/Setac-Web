@@ -79,6 +79,8 @@ class Professor extends Usuario
         if (count($result2) > 0) {
             $this->setDadosProfessor($result2[0]);
             return $this;
+        }else{
+            echo  "<script>alert('Professor não encontrado!');</script>";
         }
     }
 
