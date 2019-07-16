@@ -119,6 +119,14 @@ USE `setac` ;
 
 DELIMITER //
 
+CREATE PROCEDURE 'insere_usuaro_has_atividade' (
+(Uusuario_id iNT, Aatividade_id INT)
+BEGIN
+  INSERT INTO usuario_has_atividade (usuario_id, atividade_id)
+  VALUES (Uusuario_id, Aatividade_id)
+END
+)//
+
 CREATE PROCEDURE `insere_usuario`
 (Ulogin VARCHAR(45), Usenha VARCHAR(45), Uemail VARCHAR(45), Uacesso VARCHAR(45), Unome VARCHAR(45), Ucpf CHAR(11), Utelefone CHAR(11))
 BEGIN

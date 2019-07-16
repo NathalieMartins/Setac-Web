@@ -36,6 +36,19 @@ CALL insere_atividade('Palestra Mineração de dados', 'Ganhar dinheiro', 100, '
 
 CALL insere_atividade('Jogos digitais', 'Modelagem 3D', 30, 'L09', 'Disponivel', '4 horas', 'Thiagão do Gueto', 'franca@utfpr.edu.br');
 
+-- ----------------------------------------------------------------
+-- INSERE TABELA ASSOCIATIVA
+-- ----------------------------------------------------------------
+
+CALL insere_usuaro_has_atividade(1, 1);
+CALL insere_usuaro_has_atividade(1, 2);
+CALL insere_usuaro_has_atividade(1, 3);
+
+CALL insere_usuaro_has_atividade(3, 1);
+CALL insere_usuaro_has_atividade(3, 2);
+CALL insere_usuaro_has_atividade(3, 3);
+
+CALL insere_usuaro_has_atividade(2, 2);
 
 select * from atividade;
 
