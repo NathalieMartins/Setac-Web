@@ -127,15 +127,7 @@ class Estudante extends Usuario
     public function __toString()
     {
         return json_encode(array(
-            "user_id" => $this->getId(),
-            "login" => $this->getLogin(),
-            "senha" => $this->getSenha(),
-            "email" => $this->getEmail(),
-            "acesso" => $this->getAcesso(),
-            "nome" => $this->getNome(),
-            "cpf" => $this->getCPF(),
-            "telefone" => $this->getTelefone(),
-
+            "aluno_id" => $this->getId(),   
             "registroAcademico" => $this->getRegistroAcademico(),
             "usuario_id" => $this->getIdUsuario()
         ));
