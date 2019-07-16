@@ -159,12 +159,12 @@ class Professor extends Usuario
         }
     }
 
-    public function deleteProfessor()
+    public function deleteProfessor($siape)
     {
         $conexao = new Connection();
 
         $conexao->query("DELETE FROM professor WHERE siape = :SIAPE", array(
-            ':SIAPE' => $this->getSiape()
+            ':SIAPE' => $siape
         ));
 
         echo  "<script>alert('Professor excluído com sucesso!');</script>";
