@@ -9,8 +9,16 @@ class Atividade
     public $status;
     public $cargaHoraria;
 
-    public function __construct()
-    { }
+    public function __construct($id = "", $titulo = "", $descricao = "", $limiteInscricao = "", $lugar = "", $status = "", $cargaHoraria = "")
+    {
+        $this->id = $id;
+        $this->titulo = $titulo;
+        $this->descricao = $descricao;
+        $this->limiteInscricao = $limiteInscricao;
+        $this->lugar = $lugar;
+        $this->status = $status;
+        $this->cargaHoraria = $cargaHoraria;
+    }
 
     public function setId($id)
     {
