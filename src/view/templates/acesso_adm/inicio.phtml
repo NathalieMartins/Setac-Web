@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <?php include_once($this->url_root . "view/include/head_tags.phtml"); ?>
+    
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->url_root ?>view/css/menu.css">
+  </head>
+
+  <body>
+
+    <?php include_once($this->url_root . "view/include/navigation.phtml"); ?>
+
+    <br>
+    
+    <div class="container">
+      <div class="columns">
+        <div class="column is-2">
+          <div class="mb-20">
+            <figure class="image has-image-centered is-128x128">
+              <img src="<?php echo $this->url_root ?>view/img/logo.png" alt="Logo da SeTAC">
+            </figure>
+          </div>
+
+          <div id="show_menu" class="is-hidden">
+            <button class="button is-link is-bold is-fullwidth" onclick="switch_visibility('aside_menu');">Menu</button>
+          </div>
+
+          <aside id="aside_menu" class="menu is-hidden">
+            <ul class="menu-list">
+              <p class="menu-label">
+                Menu
+              </p>
+              <li>
+                <a href="#"><i class="fas fa-home mr-10"></i>Painel</a>
+              </li>
+        
+              <p class="menu-label">
+                Administrativo
+              </p>
+              <li>
+                <a href="#">
+                  <i class="fas fa-calendar-plus mr-10"></i>
+                  Inscrições
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fas fa-calendar mr-10"></i>
+                  Programação
+              </a>
+              </li>
+              <li><a onclick="switch_visibility('dd1');">
+                <i class="fas fa-users mr-10"></i>
+                Pessoas</a>
+                
+                <ul id="dd1" class="is-hidden">
+                  <li>
+                    <a href="#">
+                      <i class="fas fa-id-card mr-10"></i>
+                      <span class="has-">Visualizar</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fas fa-user-plus mr-10"></i>
+                      Adicionar
+                    </a>
+                  </li>
+                </ul>
+              </li>
+        
+              <p class="menu-label">
+                Usuário
+              </p>
+              <li>
+                <a href="#">
+                  <i class="fas fa-portrait mr-20"></i>
+                  Perfil público
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fas fa-user-edit mr-10"></i>
+                  Editar perfil
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
+        
+        <div class="column">
+          <h2><?php echo $this->usuario->getNome(); ?></h2>
+        </div>
+      </div>
+    
+      
+    </div>
+
+    <script src="<?php echo $this->url_root ?>view/js/navbar.js"></script>
+    <script src="<?php echo $this->url_root ?>view/js/menu.js"></script>
+  </body>
+</html>

@@ -18,10 +18,10 @@ $page->titulo = "painel";
 $page->usuario = $usuario;
 
 if($usuario->getAcesso() == 1) {
-  $page->render("painel-user.phtml");
+  $page->render("acesso_user/inicio.phtml");
 }
 else if($usuario->getAcesso() == 2) {
-  $page->render("painel-adm.phtml");
+  $page->render("acesso_adm/inicio.phtml");
 }
 else {
   throw new Exception("Código de acesso inválido.");

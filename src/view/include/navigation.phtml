@@ -50,6 +50,9 @@
             </p>
           <?php }} else if($this->modulo === "painel") {?>
             <p class="control">
+            <?php if($this->usuario->getAcesso() == 2) {?>
+              <span class="tag is-danger">ADM</span>
+            <?php }?>
               <a class="button is-dark" href="<?php echo $this->url_root ?>painel">
                 <i class="fas fa-user mr-10"></i>
                 <span>
