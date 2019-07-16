@@ -5,12 +5,23 @@ include_once('Usuario.php');
 class Estudante extends Usuario
 {
     private $registroAcademico;
+    private $idUsuario;
 
 
     public function __construct($login = "", $senha = "", $email = "", $acesso = "", $nome = "", $cpf = "", $telefone = "",$registroAcademico = "")
     {
         parent::__construct($login, $senha, $email, $acesso, $nome, $cpf, $telefone);
         $this->setRegistroAcademico($registroAcademico);
+    }
+
+    public function setIdUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
+    }
+
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
     }
 
     public function getRegistroAcademico()
@@ -32,8 +43,19 @@ class Estudante extends Usuario
             ":REGISTROACADEMICO" => $registroAcademico
         ));
 
-        if (count($results) > 0) {
-            $this->setDados($results[0]);
+        $result2 = $conexao->select(
+            "SELECT * FROM aluno inner join usuario
+            on :IDUSUARIO = usuario.id AND registroAcademico = :REGISTROACADEMICO",
+            array(
+                ":IDUSUARIO" => $results[0]["usuario_id"],
+                ":REGISTROACADEMICO" => $registroAcademico
+            )
+        );
+
+        if (count($result2) > 0) {
+            print_r($result2[0]);
+            $this->setDados($result2[0]);
+            return $this;
         }
     }
 
@@ -97,14 +119,33 @@ class Estudante extends Usuario
 
     public function setDadosEstudante($dados)
     {
+        $this->setId($dados['id']);
+        $this->setLogin($dados['login']);
+        $this->setSenha($dados['senha']);
+        $this->setEmail($dados['email']);
+        $this->setAcesso($dados['acesso']);
+        $this->setNome($dados['nome']);
+        $this->setCPF($dados['cpf']);
+        $this->setTelefone($dados['telefone']);
+
         $this->setRegistroAcademico($dados['registroAcademico']);
+        $this->setIdUsuario($dados['usuario_id']);
     }
 
     public function __toString()
     {
         return json_encode(array(
-            "registroAcademico" => $this->getRegistroAcademico(),
+            "id" => $this->getId(),
+            "login" => $this->getLogin(),
+            "senha" => $this->getSenha(),
+            "email" => $this->getEmail(),
+            "acesso" => $this->getAcesso(),
+            "nome" => $this->getNome(),
+            "cpf" => $this->getCPF(),
+            "telefone" => $this->getTelefone(),
 
+            "registroAcademico" => $this->getRegistroAcademico(),
+            "usuario_id" => $this->getIdUsuario()
         ));
     }
 }

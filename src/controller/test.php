@@ -23,9 +23,10 @@ require_once("../model/Estudante.php");
 
 #$prof = new Professor("test", "1234", "test@hotmail.com", 1, "TESTE", "01234567890", "4599236092", "1838075", "MESTRE", "COMPUTAÇÃO GRAFICA");
 #$prof->insertProfessor();
-$prof = new Professor();
-$result = $prof->loadBySiape("1");
-print_r($result);
+#$prof = new Professor();
+#$result = $prof->loadBySiape("1");
+#echo "<br><br>";
+#print_r($result);
 #$prof->updateProfessor('1838075','DOUTOR','37');
 # print_r($prof);
 #$prof->deleteProfessor('1838075');
@@ -39,3 +40,9 @@ print_r($result);
 #$est->insertEstudante();
 #$est->deleteEstudante();
 #print_r($user); 
+
+$aluno = new Estudante();
+
+$result = $aluno->loadByRegistroAcademico("1808067");
+
+#print_r($result);

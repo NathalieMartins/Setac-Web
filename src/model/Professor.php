@@ -8,6 +8,7 @@ class Professor extends Usuario
     private $siape;
     private $qualificacao;
     private $area;
+    private $idUsuario;
 
     public function __construct($login = "", $senha = "", $email = "", $acesso = "", $nome = "", $cpf = "", $telefone = "", $siape = "", $qualificacao = "", $area = "")
     {
@@ -15,6 +16,16 @@ class Professor extends Usuario
         $this->setSiape($siape);
         $this->setQualificacao($qualificacao);
         $this->setArea($area);
+    }
+
+    public function setIdUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
+    }
+
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
     }
 
     public function setSiape($siape)
@@ -51,12 +62,22 @@ class Professor extends Usuario
     {
         $conexao = new Connection();
 
-        $results = $conexao->select("SELECT * FROM professor WHERE siape = :SIAPE", array(
+        $results = $conexao->select("SELECT * FROM professor WHERE siape = :SIAPE"
+        , array(
             ":SIAPE" => $siape
         ));
 
-        if (count($results) > 0) {
-            $this->setDadosProfessor($results[0]);
+        $result2 = $conexao->select(
+            "SELECT * FROM professor inner join usuario 
+            on :IDUSUARIO = usuario.id AND siape = :SIAPE",
+            array(
+                ":IDUSUARIO" => $results[0]["usuario_id"],
+                ":SIAPE" => $siape
+            )
+        );
+
+        if (count($result2) > 0) {
+            $this->setDadosProfessor($result2[0]);
             return $this;
         }
     }
@@ -151,18 +172,19 @@ class Professor extends Usuario
 
     public function setDadosProfessor($dados)
     {
-        /*$this->setId($dados['id']);
+        $this->setId($dados['id']);
         $this->setLogin($dados['login']);
         $this->setSenha($dados['senha']);
         $this->setEmail($dados['email']);
         $this->setAcesso($dados['acesso']);
         $this->setNome($dados['nome']);
         $this->setCPF($dados['cpf']);
-        $this->setTelefone($dados['telefone']);*/
+        $this->setTelefone($dados['telefone']);
 
         $this->setSiape($dados['siape']);
         $this->setQualificacao($dados['qualificacao']);
         $this->setArea($dados['area']);
+        $this->setIdUsuario($dados['usuario_id']);
     }
 
     public function __toString()
@@ -180,7 +202,7 @@ class Professor extends Usuario
             "siape" => $this->getSiape(),
             "qualificacao" => $this->getQualificacao(),
             "area" => $this->getArea(),
-
+            "usuario_id" => $this->getIdUsuario()
         ));
     }
 }
