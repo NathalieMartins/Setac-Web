@@ -1,20 +1,20 @@
+#aside_menu a{
+  padding: 15px!important;
+}
+
 @media screen and (max-width: 768px) {
   #aside_menu {
-    background-color: #eee;
+    background-color: #e8f1ff;
     padding: 20px 20px;
     border-radius: 5px;
     margin-top: -5px;
   }
+  
+  #aside_menu a{
+    padding: 20px!important;
+  }
 
   #show_menu {
-    display: block!important;
-  }
-}
-
-
-@media screen and (min-width: 769px) {
-
-  #aside_menu {
     display: block!important;
   }
 }
