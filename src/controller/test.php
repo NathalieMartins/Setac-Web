@@ -20,15 +20,15 @@ require_once("../model/Atividade.php");
 
 # Teste da classe professor
 
-#$prof = new Professor("test", "1234", "test@hotmail.com", 1,"TESTE", "01234567890", "45998118261", "1844164", "Doutor", "IA");
-#$prof->insertProfessor();
+$prof = new Professor("test4", "1234", "test4@hotmail.com", 1,"TESTE", "01234567890", "45998118261", "4", "Doutor", "IA");
+$result = $prof->insertProfessor();
 
 #$prof = new Professor("test", "1234", "test@hotmail.com", 1, "TESTE", "01234567890", "4599236092", "1838075", "MESTRE", "COMPUTAÇÃO GRAFICA");
 #$prof->insertProfessor();
 #$prof = new Professor();
 #$result = $prof->loadBySiape("1");
 #echo "<br><br>";
-#print_r($result);
+print_r($result);
 #$prof->updateProfessor('1838075','DOUTOR','37');
 # print_r($prof);
 #$prof->deleteProfessor('1838075');
@@ -38,8 +38,8 @@ require_once("../model/Atividade.php");
 
 # Teste de classe Estudante
 
-$est = new Estudante("luan", "1234", "luan@hotmail.com", 1, "teste", "32345467", "4599236092", "849961");
-$est->insertEstudante();
+#$est = new Estudante("luan5", "1234", "luan5@hotmail.com", 1, "teste", "32345467", "4599236092", "5");
+#$result = $est->insertEstudante();
 #$est->delete();
 #$est->deleteEstudante();
 #$result = $aluno->loadByRegistroAcademico("1808067");

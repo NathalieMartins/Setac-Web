@@ -160,7 +160,7 @@ class Usuario {
 
       if(count($insert) > 0) {
         $this->setDados($insert[0]);
-        echo "Usuário cadastrado com sucesso";
+        echo "<br> Usuário cadastrado com sucesso";
         return $this;
       }
     }
@@ -211,6 +211,8 @@ class Usuario {
     $this->setNome($dados['nome']);
     $this->setCPF($dados['cpf']);
     $this->setTelefone($dados['telefone']);
+
+    return $this;
   }
 
   public function __toString() {
