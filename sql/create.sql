@@ -173,3 +173,29 @@ END//
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+/*Consulta para listar todos os ALUNOS que tem possum uma determinada atividade*/
+select * from aluno al 
+	join usuario us on us.user_id = al.usuario_id
+	join usuario_has_atividade ua on ua.usuario_id = us.user_id;
+    
+/*Consulta para listar todos os PROFESSORES que tem possum uma determinada atividade*/
+select * from professor pf
+	join usuario us on us.user_id = pf.usuario_id
+	join usuario_has_atividade ua on ua.usuario_id = us.user_id;
+
+/*Consulta para listar as ATIVIDADE em que um PROFESSOR se encontra*/
+select av.* from atividade av
+	join usuario_has_atividade ua on ua.atividade_id = av.atividade_id
+    join usuario us on us.user_id = ua.usuario_id
+    join professor pf on pf.usuario_id = us.user_id
+    where pf.siape = 1;
+    
+
+/*Consulta para listar as ATIVIDADE em que um ALUNO se encontra*/
+select * from atividade av
+	join usuario_has_atividade ua on ua.atividade_id = av.atividade_id
+    join usuario us on us.user_id = ua.usuario_id
+    join aluno al on al.usuario_id = us.user_id
+    where al.aluno_id = "XXXXXX";
