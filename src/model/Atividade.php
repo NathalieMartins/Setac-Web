@@ -1,4 +1,5 @@
 <?php
+require_once("UsuarioAtividade.php");
 class Atividade
 {
     public $id;
@@ -141,7 +142,7 @@ class Atividade
         }
     }
 
-    public function insertAtividade()
+    public function insertAtividade($userId)
     {
         $conexao = new Connection();
 
@@ -173,6 +174,9 @@ class Atividade
                 echo  "<script>alert('Atividade cadastrada com sucesso!');</script>";
                 $this->setDadosAtividade($insertAtividade[0]);
 
+                $relacionamento = new UsuarioAtividade($userId, $this->getId());
+                $relacionamento->criarRelacionamento();
+
                 return $this;
             }
         } else {
@@ -202,7 +206,7 @@ class Atividade
             ':LIMITEINSCRICAO' => $this->getlimiteInsricao(),
             ':LUGAR' => $this->getLugar(),
             ':STATUS' => $this->getStatus(),
-            ':CARGAHORARIA' => $this->getCargaHoraria(),
+            ':CARGAHORARIA' => $this->getCargaHoraria(),    
             ':MINISTRADOR' => $this->getministrador(),
             ':EMAIL' => $this->getEmail()
 
@@ -211,15 +215,19 @@ class Atividade
         echo  "<script>alert('Professor atualizado com sucesso!');</script>";
     }
 
-    public function deleteAtividade()
+    public function deleteAtividade($atividadeId, $userId)
     {
         $conexao = new Connection();
 
-        $conexao->query("DELETE FROM atividade WHERE titulo = :TITULO", array(
-            ':TITULO' => $this->getTitulo()
+        $relacionamento = new UsuarioAtividade($userId, $atividadeId);
+        $relacionamento->excluirRelacionamento();
+
+        $conexao->query("DELETE FROM atividade WHERE atividade_id = :ID", array(
+            ':ID' => $atividadeId
         ));
 
         $this->setId(0);
+        echo  "<script>alert('Atividade excluído com sucesso!');</script>";
     }
 
 
@@ -250,5 +258,47 @@ class Atividade
             "email" => $this->getEmail()
 
         ));
+    }
+
+    public function listarAtividadePorAlunoRA($registro_academico){
+        $conexao = new Connection();
+
+        $resul = $conexao->select(
+            "SELECT av.* FROM atividade av
+            JOIN usuario_has_atividade ua ON ua.atividade_id = av.atividade_id
+            JOIN usuario us ON us.user_id = ua.usuario_id
+            JOIN aluno al ON al.usuario_id = us.user_id
+            WHERE al.registroAcademico = :REGISTROACADEMICO", array(
+                ':REGISTROACADEMICO' => $registro_academico
+        ));
+
+        if(count($resul) > 0){
+            echo "Retorno <br>###############################<br>";
+            print_r($resul);
+            echo "Retorno <br>###############################<br>";
+        }else{
+            echo  "<script>alert('O aluno não possui nenhuma atividade!');</script>";
+        }
+    }
+
+    public function listarAtividadePorProfessorSiape($siape){
+        $conexao = new Connection();
+
+        $resul = $conexao->select(
+            "SELECT av.* FROM atividade av
+            JOIN usuario_has_atividade ua ON ua.atividade_id = av.atividade_id
+            JOIN usuario us ON us.user_id = ua.usuario_id
+            JOIN professor ps ON ps.usuario_id = us.user_id
+            WHERE ps.siape = :SIAPE", array(
+                ':SIAPE' => $siape
+        ));
+
+        if(count($resul) > 0){
+            echo "Retorno <br>###############################<br>";
+            print_r($resul);
+            echo "Retorno <br>###############################<br>";
+        }else{
+            echo  "<script>alert('O professor não possui nenhuma atividade!');</script>";
+        }
     }
 }
