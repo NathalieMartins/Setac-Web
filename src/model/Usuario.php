@@ -160,7 +160,8 @@ class Usuario {
 
       if(count($insert) > 0) {
         $this->setDados($insert[0]);
-        echo "<br> Usuário cadastrado com sucesso";
+        
+        echo  "<script>alert('Usuário cadastrado com sucesso!');</script>";
         return $this;
       }
     }
@@ -187,7 +188,8 @@ class Usuario {
         ':ID' => $this->getId()
       ));
 
-      echo "Atualizado com sucesso";
+      echo  "<script>alert('Usuário Atualizado com sucesso!');</script>";
+      
     } else {
       throw new InvalidArgumentException("Usuário ou email já cadastrados", 102);
     }
