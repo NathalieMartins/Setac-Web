@@ -38,8 +38,8 @@ print_r($result);
 
 # Teste de classe Estudante
 
-#$est = new Estudante("luan5", "1234", "luan5@hotmail.com", 1, "teste", "32345467", "4599236092", "5");
-#$result = $est->insertEstudante();
+#$est = new Estudante("luan", "1234", "luan@hotmail.com", 1, "teste", "32345467", "4599236092", "849961");
+#$est->insertEstudante();
 #$est->delete();
 #$est->deleteEstudante();
 #$result = $aluno->loadByRegistroAcademico("1808067");
@@ -50,7 +50,9 @@ print_r($result);
 
 # Teste de classe Atividade
 
-#$ati = new Atividade('Jogos digitais IIII', 'Modelagem 3D', 30, 'L09', 'Disponivel', '4 horas', 'Thiagão naves', 'naves@utfpr.edu.br');
-#$ati->insertAtividade();
+$ati = new Atividade('Calculo 3', 'Modelagem 3D', 30, 'L09', 'Disponivel', '4 horas', 'Thiagão naves', 'naves@utfpr.edu.br');
+#$ati->insertAtividade(1);
 #$ati->updateAtividade('Modelagem 4D',30,'e5','Disponivel','4horas','lula da silva','lula@gmail.com');
-
+#$ati->deleteAtividade(1,1);
+#$ati->listarAtividadePorAlunoRA(1838075);
+$ati->listarAtividadePorProfessorSiape(1);
