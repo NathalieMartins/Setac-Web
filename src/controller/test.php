@@ -5,6 +5,8 @@ require_once("Connection.php");
 require_once("../model/Usuario.php");
 require_once("../model/Professor.php");
 require_once("../model/Estudante.php");
+require_once("../model/Atividade.php");
+
 
 #Se quiser testar inserir um User no banco ative o construtor que receba parametros e passeos aqui
 #$user = new Usuario("test", "1234", "test@gmail.com", 1, "teste", "01234567890", "45998118261");
@@ -36,13 +38,19 @@ require_once("../model/Estudante.php");
 
 # Teste de classe Estudante
 
-$est = new Estudante("liaefho", "1234", "aeifh@hotmail.com", 1, "TESTE", "01234567890", "4599236092", "30000");
+$est = new Estudante("luan", "1234", "luan@hotmail.com", 1, "teste", "32345467", "4599236092", "849961");
 $est->insertEstudante();
-
+#$est->delete();
 #$est->deleteEstudante();
-#print_r($user); 
-
 #$result = $aluno->loadByRegistroAcademico("1808067");
 #print_r($result);
-
 #$est->updateEstudante("1802586");
+
+
+
+# Teste de classe Atividade
+
+#$ati = new Atividade('Jogos digitais IIII', 'Modelagem 3D', 30, 'L09', 'Disponivel', '4 horas', 'Thiagão naves', 'naves@utfpr.edu.br');
+#$ati->insertAtividade();
+#$ati->updateAtividade('Modelagem 4D',30,'e5','Disponivel','4horas','lula da silva','lula@gmail.com');
+
