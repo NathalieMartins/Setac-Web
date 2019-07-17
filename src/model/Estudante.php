@@ -88,7 +88,6 @@ class Estudante extends Usuario
             );
 
             if (count($insertAluno) > 0) {
-                echo  "<script>alert('Aluno Cadastrado com Sucesso!');</script>";
                 $this->setDadosEstudante($insertAluno[0], $aluno);
 
                 return $aluno;
@@ -118,8 +117,6 @@ class Estudante extends Usuario
         ));
 
         $this->setRegistroAcademico(0);
-
-        echo  "<script>alert('Aluno excluído com sucesso!');</script>";
     }
 
     public function setDadosEstudante($dados, $aluno){

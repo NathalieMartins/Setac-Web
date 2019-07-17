@@ -160,8 +160,6 @@ class Usuario {
 
       if(count($insert) > 0) {
         $this->setDados($insert[0]);
-        
-        echo  "<script>alert('Usuário cadastrado com sucesso!');</script>";
         return $this;
       }
     }
@@ -187,8 +185,6 @@ class Usuario {
         ':SENHA' => $this->getSenha(),
         ':ID' => $this->getId()
       ));
-
-      echo  "<script>alert('Usuário Atualizado com sucesso!');</script>";
       
     } else {
       throw new InvalidArgumentException("Usuário ou email já cadastrados", 102);
@@ -200,8 +196,6 @@ class Usuario {
     $conexao->query("DELETE FROM usuario WHERE `user_id` = :ID", array(
       ':ID' => $this->getId()
     ));
-
-      echo  "<script>alert('Usuário excluído com sucesso!');</script>";
   }
 
   public function setDados($dados) {
