@@ -33,6 +33,18 @@ class Atividade
         return $this->id;
     }
 
+
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
     public function setTitulo($titulo)
     {
         $this->titulo = $titulo;
@@ -75,37 +87,52 @@ class Atividade
 
     public function setStatus($status)
     {
-        this->status = $status;
+        $this->status = $status;
     }
 
     public function getStatus()
     {
-        return this->status;
+        return $this->status;
     }
 
     public function setCargaHoraria($cargaHoraria)
     {
-        this->cargaHoraria = $cargaHoraria;
+        $this->cargaHoraria = $cargaHoraria;
     }
 
     public function getCargaHoraria()
     {
-        return this->cargaHoraria;
+        return $this->cargaHoraria;
     }
 
-    public function loadByAtividade($id, $titulo, $descricao, $limiteInscricao, $lugar, $status, $cargaHoraria)
+
+    public function setMinistrador($ministrador)
+    {
+        $this->ministrador = $ministrador;
+    }
+
+    public function getMinistrador()
+    {
+        return $this->ministrador;
+    }
+
+    public function loadByAtividade($id, $titulo, $descricao, $limiteInscricao, $lugar, $status, $cargaHoraria, $ministrador, $email)
     {
         $conexao = new Connection();
 
-        $results = $conexao->select("SELECT * FROM professor WHERE
-         id = :ID, titulo = :TITULO, descricao = :DESCRICAO, limiteInscricao = :LIMITEINSCRICAO, lugar = :LUGAR, `status` = `:STATUS`, cargaHoraria = :CARGAHORARIA", array(
+        $results = $conexao->select("SELECT * FROM atividade WHERE
+         id = :ID, titulo = :TITULO, descricao = :DESCRICAO, limiteInscricao = :LIMITEINSCRICAO, 
+         lugar = :LUGAR, `status` = `:STATUS`, cargaHoraria = :CARGAHORARIA, ministrador = :MINISTRADOR, email = EMAIL", array(
             ':ID' => $id,
             ':TITULO' => $titulo,
             ':DESCRICAO' => $descricao,
             ':LIMITEINSCRICAO' => $limiteInscricao,
             ':LUGAR' => $this->$lugar,
             ':STATUS' => $this->$status,
-            ':CARGAHORARIA' => $this->$cargaHoraria
+            ':CARGAHORARIA' => $this->$cargaHoraria,
+            ':MINISTRADOR' => $this->$ministrador,
+            ':EMAIL' => $this->$email
+
         ));
 
         if (count($results) > 0) {
