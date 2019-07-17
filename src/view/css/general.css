@@ -8,7 +8,14 @@
     background-color: rgba(0,0,0,0);
   }
 }
-
+.headerDivider {
+  border-left:1px solid #38546d; 
+  border-right:1px solid #16222c; 
+  height:80px;
+  position:absolute;
+  right:249px;
+  top:10px; 
+}
 
 .ml-5 {
   margin-right: 5px;
@@ -30,11 +37,15 @@
 }
 
 .mb-20 {
-  margin-bottom: 20px;
+  margin-bottom: 20px!important;
 }
 
 .mr-20 {
   margin-right: 20px;
+}
+
+.mt-20 {
+  margin-top: 20px!important;
 }
 
 .mb-40 {
@@ -69,4 +80,11 @@
 .has-image-centered {
   margin-left: auto;
   margin-right: auto;
+}
+
+
+
+
+.border {
+  border: 2px solid #dbdbdb;
 }
