@@ -10,7 +10,13 @@ class Estudante extends Usuario
 
     public function __construct($login = "", $senha = "", $email = "", $acesso = "", $nome = "", $cpf = "", $telefone = "", $registroAcademico = "")
     {
-        parent::__construct($login, $senha, $email, $acesso, $nome, $cpf, $telefone);
+        $this->setLogin($login);
+        $this->setSenha($senha);
+        $this->setEmail($email);
+        $this->setAcesso($acesso);
+        $this->setNome($nome);
+        $this->setCPF($cpf);
+        $this->setTelefone($telefone);
         $this->setRegistroAcademico($registroAcademico);
     }
 
@@ -54,7 +60,7 @@ class Estudante extends Usuario
 
         if (count($result2) > 0) {
             print_r($result2[0]);
-            $this->setDados($result2[0]);
+            $this->setDadosEstudanteAndUser($result2[0]);
             return $this;
         }
     }
@@ -72,7 +78,7 @@ class Estudante extends Usuario
 
         if (count($resul) == 0) {
 
-            $this->insert();
+           $aluno = $this->insert();
 
             $insertAluno = $conexao->select(
                 "CALL insere_aluno(:REGISTROACADEMICO, :USERID)",
@@ -84,9 +90,9 @@ class Estudante extends Usuario
 
             if (count($insertAluno) > 0) {
                 echo  "<script>alert('Aluno Cadastrado com Sucesso!');</script>";
-                $this->setDadosEstudante($insertAluno[0]);
+                $this->setDadosEstudante($insertAluno[0], $aluno);
 
-                return $this;
+                return $aluno;
             }
         } else {
 
@@ -117,9 +123,13 @@ class Estudante extends Usuario
         echo  "<script>alert('Aluno excluído com sucesso!');</script>";
     }
 
-    public function setDadosEstudante($dados)
+    public function setDadosEstudante($dados, $aluno){
+        $aluno->setRegistroAcademico($dados['registroAcademico']);
+        $aluno->setIdUsuario($dados['usuario_id']);
+    }
+
+    public function setDadosEstudanteAndUser($dados)
     {
-        print_r($dados);
         $this->setId($dados['user_id']);
         $this->setLogin($dados['login']);
         $this->setSenha($dados['senha']);
@@ -128,6 +138,9 @@ class Estudante extends Usuario
         $this->setNome($dados['nome']);
         $this->setCPF($dados['cpf']);
         $this->setTelefone($dados['telefone']);
+
+        $this->setRegistroAcademico($dados['registroAcademico']);
+        $this->setRegistroAcademico($dados['usuario_id']);
     }
 
     public function __toString()

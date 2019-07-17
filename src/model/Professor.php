@@ -12,7 +12,13 @@ class Professor extends Usuario
 
     public function __construct($login = "", $senha = "", $email = "", $acesso = "", $nome = "", $cpf = "", $telefone = "", $siape = "", $qualificacao = "", $area = "")
     {
-        parent::__construct($login, $senha, $email, $acesso, $nome, $cpf, $telefone);
+        $this->setLogin($login);
+        $this->setSenha($senha);
+        $this->setEmail($email);
+        $this->setAcesso($acesso);
+        $this->setNome($nome);
+        $this->setCPF($cpf);
+        $this->setTelefone($telefone);
         $this->setSiape($siape);
         $this->setQualificacao($qualificacao);
         $this->setArea($area);
@@ -62,10 +68,12 @@ class Professor extends Usuario
     {
         $conexao = new Connection();
 
-        $results = $conexao->select("SELECT * FROM professor WHERE siape = :SIAPE"
-        , array(
-            ":SIAPE" => $siape
-        ));
+        $results = $conexao->select(
+            "SELECT * FROM professor WHERE siape = :SIAPE",
+            array(
+                ":SIAPE" => $siape
+            )
+        );
 
         $result2 = $conexao->select(
             "SELECT * FROM professor inner join usuario 
@@ -77,9 +85,9 @@ class Professor extends Usuario
         );
 
         if (count($result2) > 0) {
-            $this->setDadosProfessor($result2[0]);
+            $this->setDadosProfessorAndUser($result2[0]);
             return $this;
-        }else{
+        } else {
             echo  "<script>alert('Professor não encontrado!');</script>";
         }
     }
@@ -97,24 +105,23 @@ class Professor extends Usuario
 
         if (count($resul) == 0) {
 
-            /*Antes de cadastrar um professor tem que cadastrar o usuário */
-            $this->insert(); //Insere o usuário relacionado ao professor
+            $professor = $this->insert();
 
             $insertProf = $conexao->select(
                 "CALL insere_professor(:SIAPE, :QUALIFICACAO, :AREA, :USERID)",
                 array(
                     ':SIAPE' => $this->getSiape(),
                     ':QUALIFICACAO' => $this->getQualificacao(),
-                    ':AREA' => $this->getAcesso(),
+                    ':AREA' => $this->getArea(),
                     ':USERID' => $this->getId()
                 )
             );
 
             if (count($insertProf) > 0) {
                 echo  "<script>alert('Professor cadastrado com sucesso!');</script>";
-                $this->setDadosProfessor($insertProf[0]);
+                $this->setDadosProfessor($insertProf[0], $professor);
 
-                return $this;
+                return $professor;
             }
         } else {
 
@@ -126,7 +133,7 @@ class Professor extends Usuario
     {
 
         $conexao = new Connection();
-        
+
         $resul = $conexao->select(
             "UPDATE professor SET qualificacao = :QUALIFICACAO, area = :AREA WHERE siape = :SIAPE",
             array(
@@ -154,7 +161,6 @@ class Professor extends Usuario
                 )
             );
             echo  "<script>alert('Professor atualizado com sucesso!');</script>";
-
         } else {
 
             throw new Exception("Erro ao atualizar professor");
@@ -172,7 +178,15 @@ class Professor extends Usuario
         echo  "<script>alert('Professor excluído com sucesso!');</script>";
     }
 
-    public function setDadosProfessor($dados)
+    public function setDadosProfessor($dados, $professor)
+    {
+        $professor->setSiape($dados['siape']);
+        $professor->setQualificacao($dados['qualificacao']);
+        $professor->setArea($dados['area']);
+        $professor->setIdUsuario($dados['usuario_id']);
+    }
+
+    public function setDadosProfessorAndUser($dados)
     {
         $this->setId($dados['user_id']);
         $this->setLogin($dados['login']);
