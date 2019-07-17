@@ -2,6 +2,8 @@
 
 include_once('../controller/Session.php');
 include_once('../model/Usuario.php');
+include_once('../model/Estudante.php');
+include_once('../model/Professor.php');
 include_once('../view/Template.php');
 
 if(!isset($_SESSION["usuario"])) {

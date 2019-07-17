@@ -1,15 +1,194 @@
+<?php
+
+if(isset($_COOKIE["usuario"])) {
+  $usuario = unserialize($_COOKIE["usuario"]);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
     <?php include_once($this->url_root."view/include/head_tags.phtml"); ?>
 
-    <link rel="stylesheet" type="text/css" href="<?php echo $this->url_root ?>view/css/cadastro.css">
     <link rel="stylesheet" type="text/css" href="<?php echo $this->url_root ?>view/css/general.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->url_root ?>view/css/bulma-divider.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->url_root ?>view/css/bulma-checkradio.css">
   </head>
 
   <body>
-
     <?php include_once($this->url_root."view/include/navigation.phtml"); ?>
+
+    <div class="container">
+      <div class="columns mt-20">
+        <div class="column">
+          <h1 class="title is-1">Crie sua conta!</h1>
+          <h2 class="subtitle is-4">Cadastre sua conta para acessar todas as novidades da SeTAC²</h2>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column">
+          <form action="<?php echo $this->url_root ?>controller/Register.php" method="post" class="form">
+            <input type="hidden" name="form" value="cadastro">
+            <div class="columns">
+              <div class="column">
+                <h3 class="title is-5 notification is-link">Dados de acesso</h3>
+                <div class="columns">
+                  <div class="column">
+                    <div class="field">
+                      <label for="email" class="label">Email</label>
+                      <div class="control has-icons-left">
+                        <input type="email" name="email" class="input" value="<?php 
+                          echo isset($_COOKIE["usuario"]) ? $usuario["email"] : "";
+                        ?>" required>
+                        <span class="icon has-text-dark is-warning is-left">
+                          <i class="fas fa-envelope"></i>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="email_confirma" class="label">Confirmar email</label>
+                      <div class="control has-icons-left">
+                        <input type="email" name="email_confirma" class="input"  value="<?php 
+                          echo isset($_COOKIE["usuario"]) ? $usuario["email_confirma"] : "";
+                        ?>" required>
+                        <span class="icon has-text-dark is-warning is-left">
+                          <i class="fas fa-envelope"></i>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="usuario" class="label">Nome de usuário</label>
+                      <div class="control has-icons-left">
+                        <input type="text" name="usuario" class="input"  value="<?php 
+                          echo isset($_COOKIE["usuario"]) ? $usuario["usuario"] : "";
+                        ?>" required>
+                        <span class="icon has-text-dark is-warning is-left">
+                          <i class="fas fa-user"></i>
+                        </span>
+                        <?php if(isset($_COOKIE["usuario_indisponivel"])) { ?>
+                        <span class="label is-small has-text-danger">
+                          <?php 
+                            echo $_COOKIE["usuario_indisponivel"];
+                            $_COOKIE["usuario_indisponivel"] = NULL;
+                          ?>
+                        </span>
+                        <?php } ?>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="column">
+                    <div class="field">
+                      <label for="senha" class="label">Senha</label>
+                      <div class="control has-icons-left">
+                        <input type="password" name="senha" class="input" required>
+                        <span class="icon has-text-dark is-warning is-left">
+                          <i class="fas fa-key"></i>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="senha_confirma" class="label">Confirmar senha</label>
+                      <div class="control has-icons-left">
+                        <input type="password" name="senha_confirma" class="input" required>
+                        <span class="icon has-text-dark is-warning is-left">
+                          <i class="fas fa-key"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="column">
+                <h3 class="title is-5 notification is-link">Dados pessoais</h3>
+                <div class="columns">            
+                  <div class="column">
+                    <div class="field">
+                      <label for="nome" class="label">Nome completo</label>
+                      <div class="control has-icons-left">
+                        <input type="text" name="nome" class="input" value="<?php 
+                          echo isset($_COOKIE["usuario"]) ? $usuario["nome"] : "";
+                        ?>" required>
+                        <span class="icon has-text-dark is-warning is-left">
+                          <i class="fas fa-tag"></i>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="cpf" class="label">CPF</label>
+                      <div class="control has-icons-left">
+                        <input type="text" name="cpf" class="input" value="<?php 
+                          echo isset($_COOKIE["usuario"]) ? $usuario["cpf"] : "";
+                        ?>" required>
+                        <span class="icon has-text-dark is-warning is-left">
+                          <i class="fas fa-id-card"></i>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="telefone" class="label">Telefone</label>
+                      <div class="control has-icons-left">
+                        <input type="text" name="telefone" class="input" value="<?php 
+                          echo isset($_COOKIE["usuario"]) ? $usuario["telefone"] : "";
+                        ?>" required>
+                        <span class="icon has-text-dark is-warning is-left">
+                          <i class="fas fa-phone"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="column">
+                    <label class="label" for="tipo">
+                      Você é...
+                    </label>
+                    <div class="field">
+                      <div class="control mt-10">
+                        <input class="is-checkradio is-info" type="radio" name="tipo" id="tipo1" value="1" <?php 
+                          if(isset($_COOKIE["usuario"])) {
+                            echo $usuario["tipo"] == "1" ? "checked" : "";
+                          }
+                          else {
+                            echo "checked";
+                          }
+                        ?>>
+                        <label for="tipo1">Aluno</label>
+                      </div>
+                      
+                      <div class="control mt-10">
+                        <input class="is-checkradio is-danger" type="radio" name="tipo" id="tipo2" value="2" <?php 
+                          echo isset($_COOKIE["usuario"]) && $usuario["tipo"] == "2" ? "checked" : "";
+                        ?>>
+                        <label for="tipo2">Professor</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="is-divider"></div>
+
+            <div class="columns">
+              <div class="column">
+                <button type="submit" class="button is-large is-danger is-fullwidth">
+                  <i class="fas fa-paper-plane mr-20"></i>
+                  <span class="has-text-weight-bold">Enviar</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
     <script src="<?php echo $this->url_root ?>view/js/navbar.js"></script>
   </body>
