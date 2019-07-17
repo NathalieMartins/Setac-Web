@@ -4,17 +4,18 @@
     <?php include_once($this->url_root . "view/include/head_tags.phtml"); ?>
     
     <link rel="stylesheet" type="text/css" href="<?php echo $this->url_root ?>view/css/menu.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->url_root ?>view/css/bulma-divider.css">
   </head>
 
-  <body>
+  <body onload="setac_counter();">
 
     <?php include_once($this->url_root . "view/include/navigation.phtml"); ?>
 
     <br>
     
-    <div class="container">
+    <div class="container is-widescreen">
       <div class="columns">
-        <div class="column is-3">
+        <div class="column is-2">
           <div class="mb-15">
             <figure class="image has-image-centered is-128x128">
               <img src="<?php echo $this->url_root ?>view/img/logo.png" alt="Logo da SeTAC">
@@ -87,16 +88,124 @@
             </ul>
           </aside>
         </div>
+
+        <div class="is-divider-vertical"></div>
         
-        <div class="column">
-          <h2><?php echo $this->usuario->getNome(); ?></h2>
+        <div class="column has-text-centered-mobile">
+
+          <div class="columns">
+            <div class="column is-2">
+              <div class="image is-128x128 has-image-centered">
+                <img class="is-rounded" src="<?php echo $this->url_root ?>view/img/no-avatar.jpg" alt="">
+              </div>
+            </div>
+
+            <div class="column">
+              <h2 class="title is-2">
+                <?php echo $this->usuario->getNome(); ?>
+              </h2>
+              <p class="subtitle">
+                <?php echo $this->usuario->getEmail(); ?>
+              </p>
+
+              <div class="columns">
+                <div class="column">
+                  Status da inscrição: 
+                </div>
+
+                <div class="column is-3">
+                  <button class="button is-fullwidth">
+                    <i class="fas fa-edit mr-10"></i>
+                    Editar perfil
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="is-divider"></div>
+
+          <div class="tile is-ancestor notification mt-20">
+            <div class="tile is-vertical is-parent">
+              <div class="tile is-child has-text-centered is-link notification ">
+                <h2 class="subtitle is-5 is-uppercase has-text-weight-bold">
+                  VI SeTAC²
+                </h2>
+
+                <p class="mb-20">Inscrições começam em:</p>
+
+                <div id="contador" class="level is-mobile">
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="heading">Dias</p>
+                      <p id="count_days" class="title"></p>
+                    </div>
+                  </div>
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="heading">Horas</p>
+                      <p id="count_hours" class="title"></p>
+                    </div>
+                  </div>
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="heading">Minutos</p>
+                      <p id="count_minutes" class="title"></p>
+                    </div>
+                  </div>
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="heading">Segundos</p>
+                      <p id="count_seconds" class="title"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tile is-parent">
+              <div class="tile is-child has-text-centered is-warning notification ">
+                <h2 class="subtitle is-5 is-uppercase has-text-weight-bold">
+                  Cronograma
+                </h2>
+
+                <div id="contador" class="">
+                  <ul>
+                    <li class="columns has-text-left">
+                      <span class="column is-3 has-text-weight-bold">
+                        <span class="tag is-link">DD:MM:YY</span>
+                      </span>
+                      <span class="column">
+                        Lorem ipsum dolor sit.
+                      </span>
+                    </li>
+                    <li class="columns has-text-left">
+                      <span class="column is-3 has-text-weight-bold">
+                        <span class="tag is-link">DD:MM:YY</span>
+                      </span>
+                      <span class="column">
+                        Lorem ipsum dolor sit.
+                      </span>
+                    </li>
+                    <li class="columns has-text-left">
+                      <span class="column is-3 has-text-weight-bold">
+                        <span class="tag is-link">DD:MM:YY</span>
+                      </span>
+                      <span class="column">
+                        Lorem ipsum dolor sit.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-      </div>
-    
-      
+      </div>      
     </div>
 
     <script src="<?php echo $this->url_root ?>view/js/navbar.js"></script>
     <script src="<?php echo $this->url_root ?>view/js/menu.js"></script>
+    <script src="<?php echo $this->url_root ?>view/js/contador.js"></script>
   </body>
 </html>
