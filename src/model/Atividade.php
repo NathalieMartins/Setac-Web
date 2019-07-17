@@ -146,28 +146,28 @@ class Atividade
         $conexao = new Connection();
 
         $resul = $conexao->select(
-            "SELECT * FROM atividade where id = :ID",
+            "SELECT * FROM atividade where titulo = :TITULO",
             array(
-                ':ID' => $this->getId()
+                ':TITULO' => $this->getTitulo()
             )
         );
 
         if (count($resul) == 0) {
 
-            $this->insert();
-
             $insertAtividade = $conexao->select(
-
-                "CALL sp_atividades_insert(:ID, :TITULO, :DESCRICAO, :LIMITEINSCRICAO, :LUGAR, :STATUS, :CARGAHORARIA)",
-            array(
-                ':ID' => $this->getId(),
-                ':TITULO' => $this->getTitulo(),
-                ':DESCRICAO' => $this->getTitulo(),
-                ':LIMITEINSCRICAO' => $this->getTitulo(),
-                ':LUGAR' => $this->getTitulo(),
-                ':STATUS' => $this->getTitulo(),
-                ':CARGAHORARIA' => $this->getTitulo()
-            ));
+                "CALL insere_atividade(:TITULO, :DESCRICAO, :LIMITEINSCRICAO, :LUGAR, 
+                :STATUS, :CARGAHORARIA,:MINISTRADOR, :EMAIL)",
+                array(
+                    ':TITULO' => $this->getTitulo(),
+                    ':DESCRICAO' => $this->getDescricao(),
+                    ':LIMITEINSCRICAO' => $this->getlimiteInsricao(),
+                    ':LUGAR' => $this->getLugar(),
+                    ':STATUS' => $this->getStatus(),
+                    ':CARGAHORARIA' => $this->getCargaHoraria(),
+                    ':MINISTRADOR' => $this->getministrador(),
+                    ':EMAIL' => $this->getEmail()
+                )
+            );
 
             if (count($insertAtividade) > 0) {
                 echo  "<script>alert('Atividade cadastrada com sucesso!');</script>";
