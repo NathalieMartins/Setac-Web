@@ -182,34 +182,41 @@ class Atividade
     }
 
 
-    public function updateAtividade($titulo, $descricao,$limiteInscricao,$lugar,$status,$cargaHoraria)
+    public function updateAtividade($descricao, $limiteInscricao, $lugar, $status, $cargaHoraria, $ministrador, $email)
     {
-        $this->setTitulo($titulo);
         $this->setDescricao($descricao);
         $this->setLugar($lugar);
         $this->setlimiteInscricao($limiteInscricao);
         $this->setStatus($status);
         $this->setCargaHoraria($cargaHoraria);
+        $this->setMinistrador($ministrador);
+        $this->setEmail($email);
 
         $conexao = new Connection();
 
-        $conexao->query("UPDATE atividade SET titulo = :TITULO, descricao = :DESCRICAO, limieteInscricao = :LIMITEINSCRICAO, lugar = :LUGAR, `status` = :`STATUS ` WHERE idusuario = :ID", array(
-            ':ID' => $this->getId(),
+        $conexao->query("UPDATE atividade SET descricao = :DESCRICAO, limiteInscricao = :LIMITEINSCRICAO,
+         lugar = :LUGAR, status = :STATUS , cargaHoraria = :CARGAHORARIA, ministrador = :MINISTRADOR, emailMinistrador = :EMAIL WHERE titulo = :TITULO",
+         array(
             ':TITULO' => $this->getTitulo(),
-            ':DESCRICAO' => $this->getTitulo(),
-            ':LIMITEINSCRICAO' => $this->getTitulo(),
-            ':LUGAR' => $this->getTitulo(),
-            ':STATUS' => $this->getTitulo(),
-            ':CARGAHORARIA' => $this->getTitulo()
+            ':DESCRICAO' => $this->getDescricao(),
+            ':LIMITEINSCRICAO' => $this->getlimiteInsricao(),
+            ':LUGAR' => $this->getLugar(),
+            ':STATUS' => $this->getStatus(),
+            ':CARGAHORARIA' => $this->getCargaHoraria(),
+            ':MINISTRADOR' => $this->getministrador(),
+            ':EMAIL' => $this->getEmail()
+
         ));
+        
+        echo  "<script>alert('Professor atualizado com sucesso!');</script>";
     }
 
     public function deleteAtividade()
     {
         $conexao = new Connection();
 
-        $conexao->query("DELETE FROM atividade WHERE id = :ID", array(
-            ':ID' => $this->getId()
+        $conexao->query("DELETE FROM atividade WHERE titulo = :TITULO", array(
+            ':TITULO' => $this->getTitulo()
         ));
 
         $this->setId(0);
@@ -218,13 +225,15 @@ class Atividade
 
     public function setDadosAtividade($dados)
     {
-        $this->setId($dados['id']);
-        $this->setTitulo(($dados['titulo']);
+        $this->setId($dados['atividade_id']);
+        $this->setTitulo($dados['titulo']);
         $this->setDescricao($dados['descricao']);
         $this->setlimiteInscricao($dados['limiteInscricao']);
         $this->setLugar($dados['lugar']);
-        $this->setStatus($dados['status']);
+        $this->setStatus($dados['status']); 
         $this->setCargaHoraria($dados['cargaHoraria']);
+        $this->setMinistrador($dados['ministrador']);
+        $this->setEmail($dados['emailMinistrador']);
     }
 
     public function __toString()
@@ -237,6 +246,8 @@ class Atividade
             "lugar" => $this->getLugar(),
             "status" => $this->getStatus(),
             "cargaHoraria" => $this->getCargaHoraria(),
+            "minstrador" => $this->getMinistrador(),
+            "email" => $this->getEmail()
 
         ));
     }

@@ -199,7 +199,7 @@ class Usuario {
       ':ID' => $this->getId()
     ));
 
-    echo  "<script>alert('Usuário excluído com sucesso!');</script>";
+      echo  "<script>alert('Usuário excluído com sucesso!');</script>";
   }
 
   public function setDados($dados) {
