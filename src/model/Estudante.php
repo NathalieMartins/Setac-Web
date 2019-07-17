@@ -58,7 +58,6 @@ class Estudante extends Usuario
         );
 
         if (count($result2) > 0) {
-            print_r($result2[0]);
             $this->setDadosEstudanteAndUser($result2[0]);
             return $this;
         }
@@ -88,8 +87,8 @@ class Estudante extends Usuario
             );
 
             if (count($insertAluno) > 0) {
+                echo  "<script>alert('Aluno cadastrado com sucesso!');</script>";
                 $this->setDadosEstudante($insertAluno[0], $aluno);
-
                 return $aluno;
             }
         } else {
@@ -99,24 +98,46 @@ class Estudante extends Usuario
     }
 
     public function updateEstudante($registroAcademico)
-    {
-        $this->setRegistroAcademico($registroAcademico);
-
+    { 
         $conexao = new Connection();
-        $conexao->query("UPDATE aluno SET resgitroAcademico = :REGISTROACADEMICO WHERE  registroAcademico = :ID ", array(
-            ':REGISTROACADEMICO' => $registroAcademico,
-            ':ID' => $this->getRegistroAcademico()
-        ));
+
+        $resul = $conexao->select(
+            "UPDATE aluno SET resgitroAcademico = :REGISTROACADEMICO 
+            WHERE  aluno_id = :ID ",
+            array(
+                ':REGISTROACADEMICO' => $registroAcademico,
+                ':ID' => $this->getId()
+            )
+        );
+
+        if (count($resul) == 0) {
+
+            $this->getRegistroAcademico($registroAcademico);
+
+            $conexao->query(
+                "UPDATE aluno SET 
+                resgitroAcademico = :REGISTROACADEMICO 
+                WHERE  aluno_id = :ID ",
+                array(
+                    ':REGISTROACADEMICO' => $this->getRegistroAcademico(),
+                    ':ID' => $this->getId()
+                )
+            );
+            echo  "<script>alert('Aluno atualizado com sucesso!');</script>";
+        } else {
+
+            throw new Exception("Erro ao atualizar professor");
+        }
     }
 
-    public function deleteEstudante()
+    public function deleteEstudante($registroAcademico)
     {
         $conexao = new Connection();
         $conexao->query("DELETE FROM aluno WHERE registroAcademico = :REGISTROACADEMICO", array(
-            ':REGISTROACADEMICO' => $this->getRegistroAcademico()
+            ':REGISTROACADEMICO' => $registroAcademico
         ));
-
-        $this->setRegistroAcademico(0);
+        
+        echo  "<script>alert('Professor excluído com sucesso!');</script>";
     }
 
     public function setDadosEstudante($dados, $aluno){
